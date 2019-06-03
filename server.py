@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, render_template, url_for
 
 import data_manager
 
-app = Flask
+app = Flask(__name__)
 
 
 @app.route('/')
