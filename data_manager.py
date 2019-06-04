@@ -10,6 +10,9 @@ def add_new_answer():
     return connection.append_file("sample_data/answer.csv", data_list, connection.ANSWER_HEADERS)
 
 
-def read_question(file):
-    return connection.read_file(file)
+def read_data(file):
 
+    list_of_dicts = connection.read_file(file)
+    sorted_list_of_dicts = sorted(list_of_dicts, key=lambda k: k['submission_time'],reverse=True)
+
+    return sorted_list_of_dicts
