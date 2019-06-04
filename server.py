@@ -14,12 +14,12 @@ def route_list():
     return render_template('list.html',questions=questions)
 
 
-@app.route('/question')
-def route_question():
-    return render_template('question.html')
+@app.route('/question/<question_id>')
+def route_question(question_id):
+    return render_template('question.html', question=question)
 
 
-@app.route('/add-question')
+@app.route('/add-question', methods=["GET", 'POST'])
 def route_add_question():
     return render_template('add-question.html')
 
