@@ -24,7 +24,7 @@ def route_question(question_id):
     answers = data_manager.get_question(question_id,list_of_answers,"question_id")
     answers_UTC = data_manager.unix_to_utc(answers)
     print(answers_UTC)
-    return render_template('question.html',question=question, answers=answers_UTC)
+    return render_template('question.html', question=question, answers=answers_UTC)
 
 
 @app.route('/add-question', methods=["GET", 'POST'])
