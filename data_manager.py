@@ -24,12 +24,9 @@ def unix_to_utc(list_of_dict):
     return list_of_dict
 
 
-def get_question(question_id, questions_list_of_dicts):
-    for question in questions_list_of_dicts:
-        if question_id == question["id"]:
-            return question
-    return None
-
-
-
-
+def get_question(id, list_of_dicts):
+    data = []
+    for item in list_of_dicts:
+        if id == item["id"]:
+            data.append(item)
+    return data
