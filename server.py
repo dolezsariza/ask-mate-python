@@ -17,6 +17,9 @@ def route_list():
 @app.route('/question/<question_id>')
 def route_question(question_id):
 
+    list_of_questions = data_manager.read_data("sample_data/question.csv")
+    question = data_manager.get_question((question_id, list_of_questions))
+
     return render_template('question.html', question=question)
 
 

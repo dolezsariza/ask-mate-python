@@ -24,4 +24,12 @@ def unix_to_utc(list_of_dict):
     return list_of_dict
 
 
+def get_question(question_id, questions_list_of_dicts):
+    for question in questions_list_of_dicts:
+        if question_id == question.id:
+            return question
+    return None
+
+
+
 

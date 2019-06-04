@@ -10,7 +10,6 @@ QUESTION_CSV = "sample_data/question.csv"
 # dicta = {"idea": "meh", "new":"level","next":"shit"}
 
 
-
 def read_file(file):
     with open(file,"r") as csv_file:
         reader = csv.DictReader(csv_file)
@@ -18,16 +17,19 @@ def read_file(file):
 
     return data_from_file
 
+
 def write_file(file, data_list, fieldnames):
-   with open(file, "w") as csv_file:
+    with open(file, "w") as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerow(data_list)
 
+
 def append_file(file, data_list, fieldnames):
-   with open(file, "a") as csv_file:
+    with open(file, "a") as csv_file:
         writer = csv.DictWriter(csv_file,fieldnames=fieldnames)
         writer.writerow(data_list)
+
 
 """
 new = read_file("sample_data/question.csv")
