@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect, render_template, url_for
+from datetime import datetime
 
 import connection
 
@@ -16,3 +17,11 @@ def read_data(file):
     sorted_list_of_dicts = sorted(list_of_dicts, key=lambda k: k['submission_time'],reverse=True)
 
     return sorted_list_of_dicts
+
+def unix_to_utc(list_of_dict):
+    for dict in list_of_dict:
+        dict["submission_time"] = datetime.utcfromtimestamp(int(dict["submission_time"])).strftime('%Y.%m.%d. %H:%M:%S')
+    return list_of_dict
+
+
+
