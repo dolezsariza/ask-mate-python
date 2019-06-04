@@ -6,6 +6,7 @@
 </head>
 <body>
     <table>
+        <tr>
         <th>Id</th>
         <th>Submission time</th>
         <th>Number of views</th>
@@ -13,13 +14,15 @@
         <th>Title</th>
         <th>Message</th>
         <th>Image</th>
+        </tr>
         <tr>
         {% for data in question.values() %}
             <td>
-            {{data}}
+                {{data}}
             </td>
+        {% endfor %}
         </tr>
-    {% endfor %}
+
     </table>
 </body>
 </html>

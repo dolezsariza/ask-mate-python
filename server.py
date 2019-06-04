@@ -18,7 +18,8 @@ def route_list():
 def route_question(question_id):
 
     list_of_questions = data_manager.read_data("sample_data/question.csv")
-    question = data_manager.get_question((question_id, list_of_questions))
+    questions = data_manager.unix_to_utc(list_of_questions)
+    question = data_manager.get_question(question_id, questions)
 
     return render_template('question.html', question=question)
 
