@@ -20,12 +20,16 @@ def route_question(question_id):
     list_of_questions = data_manager.read_data("sample_data/question.csv")
     questions = data_manager.unix_to_utc(list_of_questions)
     question = data_manager.get_question(question_id, questions)
+    list_of_answers = data_manager.read_data("sample_data/answer.csv")
+    answers = data_manager.unix_to_utc(list_of_answers)
+
 
     return render_template('question.html', question=question)
 
 
 @app.route('/add-question', methods=["GET", 'POST'])
 def route_add_question():
+
     return render_template('add-question.html')
 
 
