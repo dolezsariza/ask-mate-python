@@ -12,5 +12,23 @@
         I'd like to see a list of questions, sorted by the latest question on top.
     </p>
 
+    <table>
+        <th>Id</th>
+        <th>Submission time</th>
+        <th>Number of views</th>
+        <th>Number of votes</th>
+        <th>Title</th>
+        <th>Message</th>
+        <th>Image</th>
+    {% for question in questions %}
+        <tr>
+        {% for data in question.values() %}
+            <td>
+            {{data}}
+            </td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
 </body>
 </html>

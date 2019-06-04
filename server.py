@@ -8,7 +8,9 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def route_list():
-    return render_template('list.html')
+    questions = data_manager.read_data("sample_data/question.csv")
+
+    return render_template('list.html',questions=questions)
 
 
 @app.route('/question/<question_id>')
@@ -18,7 +20,7 @@ def route_question(question_id):
 
 @app.route('/add-question', methods=["GET", 'POST'])
 def route_add_question():
-    return render_template('add-question.thml')
+    return render_template('add-question.html')
 
 
 if __name__ == '__main__':
@@ -27,3 +29,4 @@ if __name__ == '__main__':
         port=8000,
         debug=True,
     )
+
