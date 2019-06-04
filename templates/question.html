@@ -24,5 +24,25 @@
         </tr>
 
     </table>
+    <h1>Answers</h1>
+    <table>
+        <tr>
+        <th>Id</th>
+        <th>Submission time</th>
+        <th>Number of votes</th>
+        <th>Message</th>
+        <th>Image</th>
+        </tr>
+        <tr>
+        {% for dictionaries in answers %}
+            {% for data in dictionaries %}
+            <td>
+                {{data}}
+            </td>
+            {%  endfor %}
+        {% endfor %}
+        </tr>
+
+    </table>
 </body>
 </html>
