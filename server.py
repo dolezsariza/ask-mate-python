@@ -16,6 +16,7 @@ def route_list():
 
 @app.route('/question/<question_id>')
 def route_question(question_id):
+
     return render_template('question.html', question=question)
 
 

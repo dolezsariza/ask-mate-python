@@ -5,28 +5,30 @@
     <title>List of questions</title>
 </head>
 <body>
-    <p>
-        As a User, When I open the website,
-    </p>
-    <p>
-        I'd like to see a list of questions, sorted by the latest question on top.
-    </p>
-
     <table>
         <th>Id</th>
         <th>Submission time</th>
         <th>Number of views</th>
         <th>Number of votes</th>
         <th>Title</th>
-        <th>Message</th>
-        <th>Image</th>
+
     {% for question in questions %}
         <tr>
-        {% for data in question.values() %}
             <td>
-            {{data}}
+                {{question.id}}
             </td>
-        {% endfor %}
+            <td>
+                {{question.submission_time}}
+            </td>
+            <td>
+                {{question.view_number}}
+            </td>
+            <td>
+                {{question.vote_number}}
+            </td>
+            <td>
+                <a href="/question/{{ question.id }}">{{question.title}}</a>
+            </td>
         </tr>
     {% endfor %}
     </table>
