@@ -15,16 +15,16 @@
     <table>
         <th>Id</th>
         <th>Submission time</th>
-        <th>Numer of views</th>
+        <th>Number of views</th>
         <th>Number of votes</th>
         <th>Title</th>
         <th>Message</th>
         <th>Image</th>
-    {% for row in user_stories %}
+    {% for question in questions %}
         <tr>
-        {% for y in row.values() %}
+        {% for data in question.values() %}
             <td>
-            {{y}}
+            {{data}}
             </td>
         {% endfor %}
         </tr>
