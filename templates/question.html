@@ -33,15 +33,16 @@
         <th>Message</th>
         <th>Image</th>
         </tr>
-        <tr>
-        {% for dictionaries in answers %}
-            {% for data in dictionaries %}
+
+        {% for dictionary in answers %}
+            <tr>
+            {% for data in dictionary.values() %}
             <td>
                 {{data}}
             </td>
             {%  endfor %}
+            </tr>
         {% endfor %}
-        </tr>
 
     </table>
 </body>
