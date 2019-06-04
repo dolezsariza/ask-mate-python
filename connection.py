@@ -11,7 +11,7 @@ QUESTION_CSV = "sample_data/question.csv"
 
 
 def read_file(file):
-    with open(file,"r") as csv_file:
+    with open(file, "r") as csv_file:
         reader = csv.DictReader(csv_file)
         data_from_file = [dict(story) for story in reader]
 
