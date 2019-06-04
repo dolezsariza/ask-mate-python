@@ -24,7 +24,7 @@ def unix_to_utc(list_of_dict):
     return list_of_dict
 
 
-def get_question(id, list_of_dicts,id_type):
+def get_question(id, list_of_dicts, id_type):
     data = []
     for item in list_of_dicts:
         if id == item[id_type]:
