@@ -20,7 +20,8 @@ def write_file(file, data_list, fieldnames):
     with open(file, "w") as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
-        writer.writerow(data_list)
+        for dictionary in data_list:
+            writer.writerow(dictionary)
 
 
 def append_file(file, data_list, fieldnames):
