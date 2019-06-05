@@ -1,6 +1,6 @@
 import csv
 
-ANSWER_HEADERS = ["id", "submission_time", "vote_number", "question_id", "message"]
+ANSWER_HEADERS = ["id", "submission_time", "vote_number", "question_id", "message", 'image']
 QUESTION_HEADERS = ["id", "submission_time", "view_number", "vote_number", "title", "message", "image"]
 ANSWERS_CSV = "sample_data/answer.csv"
 QUESTION_CSV = "sample_data/question.csv"
