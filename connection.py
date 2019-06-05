@@ -1,9 +1,7 @@
-from flask import Flask, request, redirect, render_template, url_for
-
 import csv
 
-ANSWER_HEADERS = ["id","submission_time","vote_number","question_id","message","image"]
-QUESTION_HEADERS = ["id","submission_time","view_number","vote_number","title","message","image"]
+ANSWER_HEADERS = ["id", "submission_time", "vote_number", "question_id", "message"]
+QUESTION_HEADERS = ["id", "submission_time", "view_number", "vote_number", "title", "message", "image"]
 ANSWERS_CSV = "sample_data/answer.csv"
 QUESTION_CSV = "sample_data/question.csv"
 # dictahed = ["idea","new","next"]
@@ -27,7 +25,7 @@ def write_file(file, data_list, fieldnames):
 
 def append_file(file, data_list, fieldnames):
     with open(file, "a") as csv_file:
-        writer = csv.DictWriter(csv_file,fieldnames=fieldnames)
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writerow(data_list)
 
 
