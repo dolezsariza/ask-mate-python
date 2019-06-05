@@ -30,3 +30,8 @@ def get_question(id, list_of_dicts, id_type):
         if id == item[id_type]:
             data.append(item)
     return data
+
+def get_id():
+    length_idlist = len(read_data('sample_data/question.csv'))
+    id_ = length_idlist
+    return id_
