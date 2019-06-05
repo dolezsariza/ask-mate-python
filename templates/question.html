@@ -29,18 +29,20 @@
         <tr>
         <th>Id</th>
         <th>Submission time</th>
-        <th>Number of views</th>
         <th>Number of votes</th>
         <th>Message</th>
+        <th>Image</th>
         </tr>
 
-        {% for dictionary in answers %}
+        {% for answer in answers %}
             <tr>
-            {% for data in dictionary.values() %}
-            <td>
-                {{data}}
-            </td>
-            {%  endfor %}
+                {% for key in answer %}
+                {% if key != 'question_id' %}
+                <td>
+                    {{ answer[key] }}
+                </td>
+                {% endif %}
+                {% endfor %}
             </tr>
         {% endfor %}
 

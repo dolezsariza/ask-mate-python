@@ -19,9 +19,9 @@ def route_question(question_id):
 
     list_of_questions = data_manager.read_data("sample_data/question.csv")
     questions = data_manager.unix_to_utc(list_of_questions)
-    question = data_manager.get_question(question_id, questions,"id")[0]
+    question = data_manager.get_question(question_id, questions, "id")[0]
     list_of_answers = data_manager.read_data("sample_data/answer.csv")
-    answers = data_manager.get_question(question_id,list_of_answers,"question_id")
+    answers = data_manager.get_question(question_id, list_of_answers, "question_id")
     answers_utc = data_manager.unix_to_utc(answers)
     return render_template('question.html', question=question, answers=answers_utc)
 
@@ -35,13 +35,13 @@ def route_add_question():
     return render_template('add-question.html')
 
 
-# @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
-# def post_answer(question_id):
-#     if request.method == 'POST':
-#
-#
-#     return render_template('add-answer.html')
+@app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
+def post_answer(question_id):
+    if request.method == 'POST':
+        data_manager.add_new_answer(request.form)
+        return redirect('/question/' + question_id)
 
+    return render_template('add-answer.html', question_id=question_id)
 
 
 if __name__ == '__main__':

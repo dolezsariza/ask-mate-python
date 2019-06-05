@@ -3,14 +3,17 @@ import connection
 
 
 def add_new_question(request_form):
-    new_question = {'id': generate_new_id(), 'submission_time': 1493368154, 'view_number': 0, 'vote_number': 0,
+    new_question = {'id': generate_new_id('sample_data/question.csv'), 'submission_time': 1493368154, 'view_number': 0, 'vote_number': 0,
                     'title': str(request_form['title']), 'message': str(request_form['message']), 'image': None}
     return connection.append_file("sample_data/question.csv", new_question, connection.QUESTION_HEADERS)
     # data_list is the submit dictionary
 
 
-def add_new_answer(data_list):
-    return connection.append_file("sample_data/answer.csv", data_list, connection.ANSWER_HEADERS)
+def add_new_answer(request_form):
+    new_answer = {'id': generate_new_id('sample_data/answer.csv'), 'submission_time': 1493368154,
+                  'vote_number': 0, 'question_id': request_form['question_id'],
+                  'message': str(request_form['message']), 'image': None}
+    return connection.append_file("sample_data/answer.csv", new_answer, connection.ANSWER_HEADERS)
 
 
 def read_data(file):
@@ -35,8 +38,8 @@ def get_question(id, list_of_dicts, id_type):
     return data
 
 
-def generate_new_id():
-    length_of_file = len(read_data('sample_data/question.csv'))
+def generate_new_id(file_path):
+    length_of_file = len(read_data(file_path))
     id_ = length_of_file
     return id_
 
