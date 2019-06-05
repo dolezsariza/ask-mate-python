@@ -41,3 +41,9 @@ def generate_new_id():
     id_ = length_of_file
     return id_
 
+def rewrite_file(file, data_list, headers):
+    if headers == 'question':
+        headers = connection.QUESTION_HEADERS
+    if headers == 'answer':
+        headers = connection.ANSWER_HEADERS
+    connection.write_file(file, data_list, headers)
