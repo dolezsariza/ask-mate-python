@@ -30,16 +30,17 @@ def route_question(question_id):
 def route_add_question():
     if request.method == 'POST':
         data_manager.add_new_question(request.form)
+        return redirect('/')
 
     return render_template('add-question.html')
 
 
-@app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
-def post_answer(question_id):
-    if request.method == 'POST':
-
-
-    return render_template('add-answer.html')
+# @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
+# def post_answer(question_id):
+#     if request.method == 'POST':
+#
+#
+#     return render_template('add-answer.html')
 
 
 
