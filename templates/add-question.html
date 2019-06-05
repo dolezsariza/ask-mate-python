@@ -2,17 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add new question</title>
+    <title>New question</title>
 </head>
 <body>
-    <p>
-        As a User, When I click on a "Ask a question" button/link,
-    </p>
-    <p>
-        I'd like to be able to fill in a form with my question and it's details.
-    </p>
-    <p>
-        Then I'd like to be redirected to the "Display a question" page of this new question.
-    </p>
+    <h1>
+        New question
+    </h1>
+    <br>
+    <form action="/add-question" method="POST">
+        <b>Title</b><br>
+        <input type="text" name="title" required>
+        <br>
+        <br>
+        <b>Write a question</b><br>
+        <textarea name="message" cols="50" rows="10" required></textarea>
+        <br>
+        <br>
+        <button type="submit"><b>Submit question</b></button>
+    </form>
+    <br>
+    <br>
+    <a href="/list"><button><b>Back</b></button></a>
+
 </body>
 </html>

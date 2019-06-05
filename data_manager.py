@@ -3,7 +3,7 @@ from datetime import datetime
 
 import connection
 
-def add_new_question():
+def add_new_question(data_list):
     return connection.append_file("sample_data/question.csv", data_list, connection.QUESTION_HEADERS)
     # data_list is the submit dictionary
 
