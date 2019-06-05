@@ -5,7 +5,7 @@
     <title>Details of question</title>
 </head>
 <body>
-    <table>
+    <table border="1">
         <tr>
         <th>Id</th>
         <th>Submission time</th>
@@ -25,13 +25,13 @@
 
     </table>
     <h1>Answers</h1>
-    <table>
+    <table border="1">
         <tr>
         <th>Id</th>
         <th>Submission time</th>
+        <th>Number of views</th>
         <th>Number of votes</th>
         <th>Message</th>
-        <th>Image</th>
         </tr>
 
         {% for dictionary in answers %}
@@ -45,5 +45,7 @@
         {% endfor %}
 
     </table>
+    <a href="/question/{{ question.id }}/new-answer">Post new answer</a>
+    <a href="/list">Go back to main</a>
 </body>
 </html>
