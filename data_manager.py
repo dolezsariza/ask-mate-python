@@ -11,7 +11,7 @@ def add_new_question(request_form):
 
 
 def add_new_answer(request_form):
-    new_answer = {'id': generate_new_id('sample_data/answer.csv'), 'submission_time': 1493368154,
+    new_answer = {'id': generate_new_id('sample_data/answer.csv'), 'submission_time': int(time()+7200),
                   'vote_number': 0, 'question_id': request_form['question_id'],
                   'message': str(request_form['message']), 'image': None}
     return connection.append_file("sample_data/answer.csv", new_answer, connection.ANSWER_HEADERS)
