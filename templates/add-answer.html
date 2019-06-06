@@ -7,10 +7,9 @@
     <body>
     <form action="/question/{{ question_id }}/new-answer" method="post">
         <label for="message"><h1>Answer</h1></label>
-        <input type="text" id="message" name="message"><br>
+        <textarea name="message" cols="50" rows="10" required></textarea><br>
         <button type="submit">Post Answer</button>
         <input type="hidden" name="question_id" value="{{ question_id }}">
     </form>
-
     </body>
 </html>

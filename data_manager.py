@@ -4,8 +4,9 @@ import connection
 
 
 def add_new_question(request_form):
-    new_question = {'id': generate_new_id('sample_data/question.csv'), 'submission_time': int(time()+7200), 'view_number': 0, 'vote_number': 0,
-                    'title': str(request_form['title']), 'message': str(request_form['message']), 'image': None}
+    new_question = {'id': generate_new_id('sample_data/question.csv'), 'submission_time': int(time()+7200),
+                    'view_number': 0, 'vote_number': 0, 'title': str(request_form['title']),
+                    'message': str(request_form['message']), 'image': None}
     return connection.append_file("sample_data/question.csv", new_question, connection.QUESTION_HEADERS)
     # data_list is the submit dictionary
 
@@ -31,10 +32,10 @@ def unix_to_utc(list_of_dict):
     return list_of_dict
 
 
-def get_question(id, list_of_dicts, id_type):
+def get_question_or_answers(id_, list_of_dicts, id_type):
     data = []
     for item in list_of_dicts:
-        if id == item[id_type]:
+        if id_ == item[id_type]:
             data.append(item)
     return data
 
@@ -48,7 +49,7 @@ def generate_new_id(file_path):
 def rewrite_file(id_, file, data_list, headers):
     if headers == 'question':
         headers = connection.QUESTION_HEADERS
-        question = get_question(id_, data_list, "id")[0]
+        question = get_question_or_answers(id_, data_list, "id")[0]
         question['view_number'] = int(question['view_number'])
         question['view_number'] += 1
     elif headers == 'answer':
