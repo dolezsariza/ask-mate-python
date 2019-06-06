@@ -37,6 +37,11 @@ def route_add_question():
 
     return render_template('add-question.html')
 
+@app.route('/question/<question_id>/delete')
+def delete_question(question_id):
+    list_of_questions = data_manager.read_data("sample_data/question.csv")
+    data_manager.delete_item(list_of_questions,question_id,"sample_data/question.csv","question")
+    return redirect("/")
 
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
 def post_answer(question_id):
@@ -46,6 +51,12 @@ def post_answer(question_id):
 
     return render_template('add-answer.html', question_id=question_id)
 
+"""
+@app.route('/answer/<answer_id>/delete')
+def delete_answer(id_):
+
+    return redirect("/")
+"""
 
 if __name__ == '__main__':
     app.run(
