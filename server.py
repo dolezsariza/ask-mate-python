@@ -14,12 +14,11 @@ def route_list():
     return render_template('list.html', questions=questions)
 
 
-@app.route('/question/<question_id>', methods=['GET'])
+@app.route('/question/<question_id>')
 def route_question(question_id):
     list_of_questions = data_manager.read_data("sample_data/question.csv")
 
-    if request.method == 'GET':
-        data_manager.rewrite_file(question_id, 'sample_data/question.csv', list_of_questions, 'question')
+    data_manager.rewrite_file(question_id, 'sample_data/question.csv', list_of_questions, 'question')
 
     question = data_manager.get_question_or_answers(question_id, data_manager.unix_to_utc(list_of_questions), "id")[0]
 
