@@ -56,4 +56,12 @@ def rewrite_file(id_, file, data_list, headers):
 
     connection.write_file(file, data_list, headers)
 
+def delete_item(data_list,question_id,file,type):
+    for dict in data_list:
+        if dict["id"] == question_id:
+            data_list.remove(dict)
+    if type=="question":
+        connection.write_file(file, data_list, connection.QUESTION_HEADERS)
+    elif type=="answer":
+        connection.write_file(file,data_list,connection.ANSWER_HEADERS)
 
