@@ -45,9 +45,15 @@ def generate_new_id(file_path):
     return id_
 
 
-def rewrite_file(file, data_list, headers):
+def rewrite_file(id_, file, data_list, headers):
     if headers == 'question':
         headers = connection.QUESTION_HEADERS
+        question = get_question(id_, data_list, "id")[0]
+        question['view_number'] = int(question['view_number'])
+        question['view_number'] += 1
     elif headers == 'answer':
         headers = connection.ANSWER_HEADERS
+
     connection.write_file(file, data_list, headers)
+
+

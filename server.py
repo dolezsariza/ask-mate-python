@@ -19,17 +19,16 @@ def route_question(question_id):
 
     list_of_questions = data_manager.read_data("sample_data/question.csv")
     if request.method == 'GET':
-        question = data_manager.get_question(question_id, list_of_questions, "id")[0]
-        question['view_number'] = int(question['view_number'])
-        question['view_number'] += 1
-        data_manager.rewrite_file('sample_data/question.csv', list_of_questions, 'question')
-    questions = data_manager.unix_to_utc(list_of_questions)
-    question = data_manager.get_question(question_id, questions, "id")[0]
-    list_of_answers = data_manager.read_data("sample_data/answer.csv")
-    answers = data_manager.get_question(question_id, list_of_answers, "question_id")
-    answers_utc = data_manager.unix_to_utc(answers)
 
-    return render_template('question.html', question=question, answers=answers_utc)
+        data_manager.rewrite_file(question_id,'sample_data/question.csv', list_of_questions, 'question')
+
+    questions = data_manager.get_question(question_id, data_manager.unix_to_utc(list_of_questions), "id")[0]
+
+    list_of_answers = data_manager.read_data("sample_data/answer.csv")
+    answers = data_manager.get_question(question_id, data_manager.unix_to_utc(list_of_answers), "question_id")
+
+
+    return render_template('question.html', question=questions, answers=answers)
 
 
 @app.route('/add-question', methods=["GET", 'POST'])
