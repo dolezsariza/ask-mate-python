@@ -1,7 +1,62 @@
 from datetime import datetime
 from time import time
-import connection
+from psycopg2 import sql
 
+import connection
+@connection.connection_handler
+def add_new_answer_SQL(cursor,message,question_id):
+    cursor.execute("""
+                   INSERT INTO answer(message,question_id) VALUES (%(message)s,%(question_id)s);
+                   """,
+                   {'message':message,'question_id':question_id})
+# %(id)s,%(submission_time)s,%(vote_number)s, %(question_id)s
+# 'id':id,'submission_time':submission_time,'vote_number':vote_number, 'question_id':question_id,'
+
+@connection.connection_handler
+def add_new_question_SQL(cursor,title,message):
+    cursor.execute("""
+                       INSERT INTO question(title, message) VALUES (%(title)s,%(message)s);
+                       """,
+                   {'title': title, 'message': message})
+
+@connection.connection_handler
+def read_questions(cursor):
+    cursor.execute("""
+                    SELECT * FROM question;
+                    """)
+    data = cursor.fetchall()
+    return data
+
+@connection.connection_handler
+def read_answers(cursor,question_id):
+    cursor.execute("""
+                    SELECT * FROM answer
+                    WHERE question_id=%(question_id)s;
+                    """,
+                   {'question_id':question_id})
+
+    data = cursor.fetchall()
+    return data
+
+@connection.connection_handler
+def delete_question(cursor,id):
+    cursor.execute("""
+                    DELETE FROM question
+                    WHERE id = %(id)s;
+                    """,
+                   {'id':id})
+
+
+def delete_item(data_list,question_id,file,type):
+    for dict in data_list:
+        if dict["id"] == question_id:
+            data_list.remove(dict)
+    if type=="question":
+        connection.write_file(file, data_list, connection.QUESTION_HEADERS)
+    elif type=="answer":
+        connection.write_file(file,data_list,connection.ANSWER_HEADERS)
+
+"""
 
 def add_new_question(request_form):
     new_question = {'id': generate_new_id('sample_data/question.csv'), 'submission_time': int(time()+7200),
@@ -17,7 +72,7 @@ def add_new_answer(request_form):
                   'message': str(request_form['message']), 'image': None}
     return connection.append_file("sample_data/answer.csv", new_answer, connection.ANSWER_HEADERS)
 
-
+"""
 def read_data(file):
 
     list_of_dicts = connection.read_file(file)
@@ -65,4 +120,3 @@ def delete_item(data_list,question_id,file,type):
         connection.write_file(file, data_list, connection.QUESTION_HEADERS)
     elif type=="answer":
         connection.write_file(file,data_list,connection.ANSWER_HEADERS)
-
