@@ -3,38 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>List of questions</title>
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
+    
     <h1>Questions</h1>
-    <table border="1">
-        <th>Id</th>
-        <th>Submission time</th>
-        <th>Number of views</th>
-        <th>Number of votes</th>
-        <th>Title</th>
+    <table>
+        <table border="1">
+            <th>Id</th>
+            <th>Submission time</th>
+            <th>Number of views</th>
+            <th>Number of votes</th>
+            <th>Title</th>
 
-    {% for question in questions %}
-        <tr>
-            <td>
-                {{question.id}}
-            </td>
-            <td>
-                {{question.submission_time}}
-            </td>
-            <td>
-                {{question.view_number}}
-            </td>
-            <td>
-                {{question.vote_number}}
-            </td>
-            <td>
-                <a href="/question/{{ question.id }}">{{question.title}}</a>
-            </td>
-        </tr>
-    {% endfor %}
+        {% for question in questions %}
+            <tr>
+                <td>
+                    {{question.id}}
+                </td>
+                <td>
+                    {{question.submission_time}}
+                </td>
+                <td>
+                    {{question.view_number}}
+                </td>
+                <td>
+                    {{question.vote_number}}
+                </td>
+                <td>
+                    <a href="/question/{{ question.id }}">{{question.title}}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+        <br>
+        <br>
+        <a href="/add-question"><button><b>Add question</b></button></a>
     </table>
-    <br>
-    <br>
-    <a href="/add-question"><button><b>Add question</b></button></a>
+    </div>
 </body>
 </html>
