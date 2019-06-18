@@ -26,6 +26,8 @@ def get_question_by_id(cursor,question_id):
                     WHERE id = %(question_id)s;
                     """,
                    {'question_id':question_id})
+    data = cursor.fetchall()
+    return data[0]
 
 @connection.connection_handler
 def read_questions(cursor):
@@ -54,33 +56,19 @@ def delete_question(cursor,question_id):
                     """,
                    {'question_id':question_id})
 
+@connection.connection_handler
+def delete_answer(cursor,answer_id):
+    cursor.execute("""
+                    DELETE FROM answer
+                    WHERE id = %(answer_id)s;
+                    """,
+                   {'answer_id':answer_id})
 
-def delete_item(data_list,question_id,file,type):
-    for dict in data_list:
-        if dict["id"] == question_id:
-            data_list.remove(dict)
-    if type=="question":
-        connection.write_file(file, data_list, connection.QUESTION_HEADERS)
-    elif type=="answer":
-        connection.write_file(file,data_list,connection.ANSWER_HEADERS)
-
-"""
-
-def add_new_question(request_form):
-    new_question = {'id': generate_new_id('sample_data/question.csv'), 'submission_time': int(time()+7200),
-                    'view_number': 0, 'vote_number': 0, 'title': str(request_form['title']),
-                    'message': str(request_form['message']), 'image': None}
-    return connection.append_file("sample_data/question.csv", new_question, connection.QUESTION_HEADERS)
-    # data_list is the submit dictionary
+# nem lehet törölni mert van foreign key, ezért először sorban ki kell törölni minden ID-t, anélkül nem lehet törölni
+# szóval kell egy általános delete(cursor,table,id), ami kitörli ezeket a foreign key-t
 
 
-def add_new_answer(request_form):
-    new_answer = {'id': generate_new_id('sample_data/answer.csv'), 'submission_time': int(time()+7200),
-                  'vote_number': 0, 'question_id': request_form['question_id'],
-                  'message': str(request_form['message']), 'image': None}
-    return connection.append_file("sample_data/answer.csv", new_answer, connection.ANSWER_HEADERS)
-
-"""
+# innentől még CSV
 def read_data(file):
 
     list_of_dicts = connection.read_file(file)

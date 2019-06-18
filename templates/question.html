@@ -24,12 +24,14 @@
                 <td>{{ question.title }}</td>
                 <td>{{ question.message }}</td>
                 <td>{{ question.image }}</td>
+
             </tr>
 
     </table>
     <h1>Answers</h1>
     <table border="1">
         <tr>
+        <th>delete</th>
         <th>Id</th>
         <th>Submission time</th>
         <th>Number of votes</th>
@@ -40,12 +42,20 @@
         {% for answer in answers %}
             <tr>
                 {% for key in answer %}
-                {% if key != 'question_id' %}
-                <td>
-                    {{ answer[key] }}
-                </td>
-                {% endif %}
+                    {% if key != 'question_id' %}
+                    {%  if key == 'id' %}
+                        <td>
+                            <a href="{{ url_for('delete_answer',answer_id= answer[key])}}">DELETE</a>
+                        </td>
+                    {% endif %}
+                    <td>
+                        {{ answer[key] }}
+                    </td>
+
+                    {% endif %}
+
                 {% endfor %}
+
             </tr>
         {% endfor %}
 

@@ -39,21 +39,22 @@ def delete_question(question_id):
     return redirect("/")
 
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
-def post_answer():
+def post_answer(question_id):
     if request.method == 'POST':
         message=request.form['message']
-        question_id=request.form['question_id']
+        #question_id=request.form['question_id']
         data_manager.add_new_answer_SQL(message,question_id)
-        return redirect('/question/' + question_id)
-
-    return render_template('add-answer.html')
+        return redirect(url_for('route_question', question_id=question_id))
+# ' + question_id
+    return render_template('add-answer.html',question_id=question_id)
 #, question_id = question_id
-"""
+
 @app.route('/answer/<answer_id>/delete')
-def delete_answer(id_):
+def delete_answer(answer_id):
+    data_manager.delete_answer(answer_id)
 
     return redirect("/")
-"""
+
 
 if __name__ == '__main__':
     app.run(
