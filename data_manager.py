@@ -20,6 +20,14 @@ def add_new_question_SQL(cursor,title,message):
                    {'title': title, 'message': message})
 
 @connection.connection_handler
+def get_question_by_id(cursor,question_id):
+    cursor.execute("""
+                    SELECT * from question
+                    WHERE id = %(question_id)s;
+                    """,
+                   {'question_id':question_id})
+
+@connection.connection_handler
 def read_questions(cursor):
     cursor.execute("""
                     SELECT * FROM question;
@@ -39,12 +47,12 @@ def read_answers(cursor,question_id):
     return data
 
 @connection.connection_handler
-def delete_question(cursor,id):
+def delete_question(cursor,question_id):
     cursor.execute("""
                     DELETE FROM question
-                    WHERE id = %(id)s;
+                    WHERE id = %(question_id)s;
                     """,
-                   {'id':id})
+                   {'question_id':question_id})
 
 
 def delete_item(data_list,question_id,file,type):

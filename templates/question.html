@@ -16,13 +16,15 @@
         <th>Message</th>
         <th>Image</th>
         </tr>
-        <tr>
-        {% for data in question.values() %}
-            <td>
-                {{data}}
-            </td>
-        {% endfor %}
-        </tr>
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.submission_time }}</td>
+                <td>{{ question.view_number }}</td>
+                <td>{{ question.vote_number }}</td>
+                <td>{{ question.title }}</td>
+                <td>{{ question.message }}</td>
+                <td>{{ question.image }}</td>
+            </tr>
 
     </table>
     <h1>Answers</h1>

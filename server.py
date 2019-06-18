@@ -14,7 +14,9 @@ def route_list():
 
 @app.route('/question/<question_id>')
 def route_question(question_id):
-    question = (data_manager.read_questions())[int(question_id)]
+
+    question = data_manager.get_question_by_id(question_id)
+
     answers = data_manager.read_answers(question_id)
 
     return render_template('question.html', question=question, answers=answers)
@@ -32,7 +34,7 @@ def route_add_question():
 
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id):
-    question_id = request.form['question_id']
+    #question_id = request.form['question_id']
     data_manager.delete_question(question_id)
     return redirect("/")
 
