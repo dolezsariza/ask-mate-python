@@ -93,6 +93,46 @@ def delete(cursor, table, parameter, value):
     cursor.execute(sql.SQL("DELETE FROM {0} WHERE {1} = %s")
                    .format(sql.Identifier(table), sql.Identifier(parameter)), [value])
 
+@connection.connection_handler
+def up_vote_question(cursor, question_id):
+    cursor.execute("""
+                    UPDATE question
+                    SET vote_number = vote_number + 1
+                    WHERE id = %(question_id)s;
+                    """,
+                   {'question_id': question_id})
+
+
+@connection.connection_handler
+def down_vote_question(cursor, question_id):
+    cursor.execute("""
+                    UPDATE question
+                    SET vote_number = vote_number - 1
+                    WHERE id = %(question_id)s;
+                    """,
+                   {'question_id': question_id})
+
+
+@connection.connection_handler
+def up_vote_answer(cursor, answer_id):
+    cursor.execute("""
+                    UPDATE answer
+                    SET vote_number = vote_number + 1
+                    WHERE id = %(answer_id)s;
+                    """,
+                   {'answer_id': answer_id})
+
+@connection.connection_handler
+def up_vote_down(cursor, answer_id):
+    cursor.execute("""
+                    UPDATE answer
+                    SET vote_number = vote_number - 1
+                    WHERE id = %(answer_id)s;
+                    """,
+                   {'answer_id': answer_id})
+
+
+
 # innentől még CSV
 def read_data(file):
 

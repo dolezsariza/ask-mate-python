@@ -79,6 +79,29 @@ def delete_comment_from_question(comment_id):
 
     return redirect("/")
 
+@app.route('/question/<question_id>/vote/up')
+def vote_up_question(question_id):
+    data_manager.up_vote_question(question_id)
+    return redirect('/')
+
+
+@app.route('/question/<question_id>/vote/down')
+def vote_down_question(question_id):
+    data_manager.down_vote_question(question_id)
+    return redirect('/')
+
+
+@app.route('/answer/<answer_id>/vote/up')
+def vote_up_answer(answer_id):
+    return redirect('/')
+
+@app.route('/answer/<answer_id>/vote/down')
+def vote_down_answere(answer_id):
+    return redirect('/')
+
+
+
+
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
