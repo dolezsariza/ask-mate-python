@@ -48,25 +48,11 @@ def read_answers(cursor,question_id):
     data = cursor.fetchall()
     return data
 
-@connection.connection_handler
-def delete_question(cursor,question_id):
-    cursor.execute("""
-                    DELETE FROM question
-                    WHERE id = %(question_id)s;
-                    """,
-                   {'question_id':question_id})
 
 @connection.connection_handler
-def delete_answer(cursor,answer_id):
-    cursor.execute("""
-                    DELETE FROM answer
-                    WHERE id = %(answer_id)s;
-                    """,
-                   {'answer_id':answer_id})
-
-# nem lehet törölni mert van foreign key, ezért először sorban ki kell törölni minden ID-t, anélkül nem lehet törölni
-# szóval kell egy általános delete(cursor,table,id), ami kitörli ezeket a foreign key-t
-
+def delete(cursor, table, parameter, value):
+    cursor.execute(sql.SQL("DELETE FROM {0} WHERE {1} = %s")
+                   .format(sql.Identifier(table), sql.Identifier(parameter)), [value])
 
 # innentől még CSV
 def read_data(file):
