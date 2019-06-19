@@ -83,6 +83,18 @@ def generate_new_id(file_path):
     return id_
 
 
+@connection.connection_handler
+def raise_views_number(cursor, question_id):
+    cursor.execute("""
+                    UPDATE question
+                    SET view_number = view_number + 1
+                    WHERE id = %(question_id)s;
+                    
+                    """,
+                   {'question_id': question_id})
+
+
+
 def rewrite_file(id_, file, data_list, headers):
     if headers == 'question':
         headers = connection.QUESTION_HEADERS

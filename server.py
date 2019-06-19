@@ -12,12 +12,16 @@ def route_list():
     return render_template('list.html', questions=questions)
 
 
-@app.route('/question/<question_id>')
+@app.route('/question/<question_id>', methods=["GET"])
 def route_question(question_id):
+
+    data_manager.raise_views_number(question_id)
 
     question = data_manager.get_question_by_id(question_id)
 
     answers = data_manager.read_answers(question_id)
+
+
 
     return render_template('question.html', question=question, answers=answers)
 
