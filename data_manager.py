@@ -6,7 +6,8 @@ import connection
 @connection.connection_handler
 def add_new_answer_SQL(cursor,message,question_id):
     cursor.execute("""
-                   INSERT INTO answer(message,question_id) VALUES (%(message)s,%(question_id)s);
+                   INSERT INTO answer(message,question_id,vote_number) 
+                   VALUES (%(message)s,%(question_id)s, 0);
                    """,
                    {'message':message,'question_id':question_id})
 # %(id)s,%(submission_time)s,%(vote_number)s, %(question_id)s
@@ -14,10 +15,12 @@ def add_new_answer_SQL(cursor,message,question_id):
 
 @connection.connection_handler
 def add_new_question_SQL(cursor,title,message):
+    submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                       INSERT INTO question(title, message) VALUES (%(title)s,%(message)s);
+                       INSERT INTO question(title, message, submission_time, view_number, vote_number) 
+                       VALUES (%(title)s,%(message)s,%(submission_time)s, 0, 0);
                        """,
-                   {'title': title, 'message': message})
+                   {'title': title, 'message': message, 'submission_time': submission_time})
 
 @connection.connection_handler
 def get_question_by_id(cursor,question_id):
