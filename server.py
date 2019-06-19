@@ -5,6 +5,10 @@ import data_manager
 app = Flask(__name__)
 
 @app.route('/')
+def main():
+    questions = data_manager.show_latest_questions()
+    return render_template('list.html',questions=questions)
+
 @app.route('/list')
 def route_list():
     questions = data_manager.read_questions()

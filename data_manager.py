@@ -3,6 +3,17 @@ from time import time
 from psycopg2 import sql
 
 import connection
+
+
+@connection.connection_handler
+def show_latest_questions(cursor):
+    cursor.execute("""
+                    SELECT * FROM question
+                    ORDER BY submission_time DESC LIMIT 5
+                    """)
+    data = cursor.fetchall()
+    return data
+
 @connection.connection_handler
 def add_new_answer_SQL(cursor,message,question_id):
     cursor.execute("""
