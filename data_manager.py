@@ -32,6 +32,16 @@ def add_new_question_SQL(cursor,title,message):
                        """,
                    {'title': title, 'message': message, 'submission_time': submission_time})
 
+@connection.connection_handler
+def edit_question_SQL(cursor,title,message,question_id):
+    cursor.execute("""
+                    UPDATE question
+                    SET title = %(title)s, message = %(message)s
+                    WHERE id = %(question_id)s;
+                    """,
+                   {'title': title, 'message': message, 'question_id': question_id})
+
+
 
 @connection.connection_handler
 def add_new_comment_to_question(cursor,message,question_id):
