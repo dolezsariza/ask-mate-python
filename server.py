@@ -82,13 +82,13 @@ def delete_comment_from_question(comment_id):
 @app.route('/question/<question_id>/vote/up')
 def vote_up_question(question_id):
     data_manager.up_vote_question(question_id)
-    return redirect('/')
+    return redirect(url_for('route_question', question_id=question_id))
 
 
 @app.route('/question/<question_id>/vote/down')
 def vote_down_question(question_id):
     data_manager.down_vote_question(question_id)
-    return redirect('/')
+    return redirect(url_for('route_question', question_id=question_id))
 
 
 @app.route('/answer/<answer_id>/vote/up')

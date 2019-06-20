@@ -22,8 +22,6 @@ def add_new_answer_SQL(cursor,message,question_id):
                    VALUES (%(message)s,%(question_id)s, 0, %(submission_time)s);
                    """,
                    {'message': message,'question_id': question_id, 'submission_time': submission_time})
-# %(id)s,%(submission_time)s,%(vote_number)s, %(question_id)s
-# 'id':id,'submission_time':submission_time,'vote_number':vote_number, 'question_id':question_id,'
 
 @connection.connection_handler
 def add_new_question_SQL(cursor,title,message):
@@ -118,7 +116,7 @@ def up_vote_answer(cursor, answer_id):
                    {'answer_id': answer_id})
 
 @connection.connection_handler
-def up_vote_down(cursor, answer_id):
+def down_vote_answer(cursor, answer_id):
     cursor.execute("""
                     UPDATE answer
                     SET vote_number = vote_number - 1
