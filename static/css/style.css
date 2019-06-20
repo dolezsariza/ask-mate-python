@@ -78,13 +78,10 @@ strong {
 }
 
 img {
-	margin: 0px;
-	border-style: dashed;
-	text-align: center;
-        border-width: 2px;
-        border-color: #ccc;
-		max-width: 50%;
+	max-width: 25%;
 	position: center;
+	text-align: justify;
+	margin-left: 20px;
 }
 
 li {
@@ -103,7 +100,7 @@ table {
 }
 #whole_bg {
 	background-color: #ffffff;
-	margin_left: 100px;
+	margin_left: 400px;
 }
 
 #logo1 {
@@ -125,6 +122,12 @@ table {
 		max-width: 38%;
 		position: center;
 }
+
+#comment {
+	background-color: #ffffff;
+	color: #000000;
+	margin: 10 px;
+  }
 
 button {
 	margin: 30px;

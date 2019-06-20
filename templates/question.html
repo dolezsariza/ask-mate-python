@@ -34,6 +34,7 @@
 <br>
 <br>
     <h2>Answers</h2>
+    {% for answer in answers %}
     <table border="1">
         <tr>
         <th>Id</th>
@@ -42,9 +43,10 @@
         <th>Message</th>
         <th>Image</th>
         <th>   </th>
+        <th>   </th>
         </tr>
 
-        {% for answer in answers %}
+
             <tr>
                 {% for key in answer %}
                     {% if key != 'question_id' %}
@@ -56,27 +58,38 @@
                 {% endfor %}
 
                 <td>
-                    <a href="{{ url_for('delete_answer',answer_id= answer['id'])}}">DELETE</a>
+                    <a href="{{ url_for('delete_answer',answer_id= answer['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
+                </td>
+                <td>
+                     <a href="{{ url_for('post_comment_to_answer',answer_id= answer['id'])}}">COMMENT</a>
                 </td>
             </tr>
+
+
+
         {% endfor %}
 
     </table>
+
+
+
+
 <br>
 <br>
 <br>
 <br>
         <h2>Comments</h2>
         <table border="1">
-        <tr>
 
-        <th>Id</th>
-        <th>Message</th>
-        <th>Submission time</th>
-        <th> </th>
-        </tr>
 
-        {% for comment in comments %}
+        {% for comment in comments_q %}
+            <tr>
+
+                <th>Id</th>
+                <th>Message</th>
+                <th>Submission time</th>
+                <th> </th>
+            </tr>
             <tr>
                 {% for key in comment %}
                     {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
@@ -86,11 +99,16 @@
                     {% endif %}
                 {% endfor %}
             <td>
-                <a href="{{ url_for('delete_comment_from_question',comment_id= comment['id'])}}">DELETE</a>
+                <a href="{{ url_for('delete_comment',comment_id= comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
             </td>
             </tr>
         {% endfor %}
     </table>
+
+<br>
+<br>
+<br>
+<br>
 
 
 
