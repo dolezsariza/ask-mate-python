@@ -62,7 +62,23 @@ def edit_question(question_id):
     for data in edit_message_data:
         for value in data:
             message_original = data[value]
+
     return render_template('edit-question.html', question_id = question_id, title_original = title_original, message_original = message_original)
+
+@app.route('/answer/<answer_id>/edit-answer', methods=["GET", "POST"])
+def edit_answer(answer_id):
+    if request.method == 'POST':
+        message = request.form['message']
+        data_manager.edit_answer_SQL(message, answer_id)
+        return redirect('/')
+
+    message_original = 0
+    edit_message_data = data_manager.get_edit_message_answer(answer_id)
+    for data in edit_message_data:
+        for value in data:
+            message_original = data[value]
+
+    return render_template('edit-answer.html', answer_id = answer_id, message_original = message_original)
 
 
 @app.route('/question/<question_id>/delete')
