@@ -88,11 +88,12 @@ def edit_answer(answer_id):
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id):
     answer_ids = data_manager.get_answer_ids(question_id)
-    for answer_id in answer_ids:
-        for value in answer_id:
-            new = answer_id[value]
-
-    data_manager.delete('comment', 'answer_id', new)
+    if len(answer_ids) != 0:
+        for answer_id in answer_ids:
+            for value in answer_id:
+                new = answer_id[value]
+        data_manager.delete('comment', 'answer_id', new)
+        
     data_manager.delete('comment','question_id',question_id)
     data_manager.delete('answer','question_id',question_id)
     data_manager.delete('question','id',question_id)
