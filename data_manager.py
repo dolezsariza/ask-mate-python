@@ -42,6 +42,15 @@ def edit_question_SQL(cursor,title,message,question_id):
                    {'title': title, 'message': message, 'question_id': question_id})
 
 
+@connection.connection_handler
+def edit_answer_SQL(cursor,message,answer_id):
+    cursor.execute("""
+                    UPDATE answer
+                    SET message = %(message)s
+                    WHERE id = %(answer_id)s;
+                    """,
+                   {'message': message, 'answer_id': answer_id})
+
 
 @connection.connection_handler
 def add_new_answer_SQL(cursor,message,question_id):
@@ -173,6 +182,17 @@ def get_edit_message(cursor, question_id):
                     WHERE id = %(question_id)s;
                     """,
                    {'question_id': question_id})
+
+    data = cursor.fetchall()
+    return data
+
+@connection.connection_handler
+def get_edit_message_answer(cursor, answer_id):
+    cursor.execute("""
+                    SELECT message FROM answer
+                    WHERE id = %(answer_id)s;
+                    """,
+                   {'answer_id': answer_id})
 
     data = cursor.fetchall()
     return data
