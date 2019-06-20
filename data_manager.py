@@ -16,11 +16,12 @@ def show_latest_questions(cursor):
 
 @connection.connection_handler
 def add_new_answer_SQL(cursor,message,question_id):
+    submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                   INSERT INTO answer(message,question_id,vote_number) 
-                   VALUES (%(message)s,%(question_id)s, 0);
+                   INSERT INTO answer(message,question_id,vote_number,submission_time) 
+                   VALUES (%(message)s,%(question_id)s, 0, %(submission_time)s);
                    """,
-                   {'message':message,'question_id':question_id})
+                   {'message': message,'question_id': question_id, 'submission_time': submission_time})
 # %(id)s,%(submission_time)s,%(vote_number)s, %(question_id)s
 # 'id':id,'submission_time':submission_time,'vote_number':vote_number, 'question_id':question_id,'
 
