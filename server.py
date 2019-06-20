@@ -93,7 +93,7 @@ def delete_question(question_id):
             for value in answer_id:
                 new = answer_id[value]
         data_manager.delete('comment', 'answer_id', new)
-        
+
     data_manager.delete('comment','question_id',question_id)
     data_manager.delete('answer','question_id',question_id)
     data_manager.delete('question','id',question_id)
