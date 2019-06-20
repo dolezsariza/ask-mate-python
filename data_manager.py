@@ -135,6 +135,28 @@ def down_vote_answer(cursor, answer_id):
                    {'answer_id': answer_id})
 
 
+@connection.connection_handler
+def get_edit_title(cursor, question_id):
+    cursor.execute("""
+                    SELECT title FROM question
+                    WHERE id = %(question_id)s;
+                    """,
+                   {'question_id': question_id})
+
+    data = cursor.fetchall()
+    return data
+
+@connection.connection_handler
+def get_edit_message(cursor, question_id):
+    cursor.execute("""
+                    SELECT message FROM question
+                    WHERE id = %(question_id)s;
+                    """,
+                   {'question_id': question_id})
+
+    data = cursor.fetchall()
+    return data
+
 
 # innentől még CSV
 def read_data(file):
