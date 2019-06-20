@@ -29,7 +29,10 @@
             </tr>
 
     </table>
-
+<br>
+<br>
+<br>
+<br>
     <h2>Answers</h2>
     <table border="1">
         <tr>
@@ -64,33 +67,32 @@
         {% endfor %}
 
     </table>
+<br>
+<br>
+<br>
+<br>
         <h2>Comments</h2>
-    <table border="1">
+        <table border="1">
         <tr>
-        <th>    </th>
+
         <th>Id</th>
         <th>Message</th>
         <th>Submission time</th>
-
+        <th> </th>
         </tr>
 
         {% for comment in comments %}
             <tr>
                 {% for key in comment %}
                     {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
-                    {%  if key == 'id' %}
-                        <td>
-                            <a href="{{ url_for('delete_comment_from_question',comment_id= comment[key])}}">DELETE</a>
-                        </td>
-                    {% endif %}
                     <td>
                         {{ comment[key] }}
                     </td>
-
                     {% endif %}
-
                 {% endfor %}
-
+            <td>
+                <a href="{{ url_for('delete_comment_from_question',comment_id= comment['id'])}}">DELETE</a>
+            </td>
             </tr>
         {% endfor %}
     </table>
