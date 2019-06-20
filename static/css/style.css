@@ -33,7 +33,7 @@ h2 {
 	font-family: "times new roman";
 	font-size: 20px;
 	text-align: center;
-	margin: 10px;
+	margin: 20px;
 
 }
 h3 {
@@ -94,6 +94,7 @@ li {
 }
 
 table {
+	width: 95.7%;
 	background-color: #ffffff;
 	color: #bbbbbb;
 	margin-left: 20px;
@@ -126,7 +127,7 @@ table {
 }
 
 button {
-	margin: 20px;
+	margin: 30px;
 	background-color: white;
 	color: #bbbbbb;
 	border-style: inset;
