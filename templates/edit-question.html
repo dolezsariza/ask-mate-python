@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit question</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <h1>
+            Edit question
+        </h1>
+        <br>
+
+        <form action="{{url_for('edit_question', question_id = question_id)}}" method="POST">
+            <b>Edit title</b><br>
+            <input type="text" name="title" required>
+            <br>
+
+            <br>
+            <b>Edit question</b><br>
+            <textarea name="message" cols="50" rows="10" required></textarea>
+            <br>
+            <br>
+            <button type="submit"><b>Submit edit</b></button>
+        </form>
+        <br>
+        <br>
+        <a href="/list"><button><b>Back</b></button></a>
+
+    </body>
+</html>
