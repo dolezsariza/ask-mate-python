@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Question</h1>
-    <table border="1">
+    <table id="question">
         <tr>
         <th>Id</th>
         <th>Submission time</th>
@@ -35,7 +35,7 @@
 <br>
     <h2>Answers</h2>
     {% for answer in answers %}
-    <table border="1">
+    <table id="answers">
         <tr>
         <th>Id</th>
         <th>Submission time</th>
@@ -66,6 +66,29 @@
             </tr>
 
 
+           <table id="comment" border="1">
+                <tr>
+                <th>Id</th>
+                <th>Message</th>
+                <th>Submission time</th>
+                <th> </th>
+                </tr>
+
+                    {% for comment in comments_a %}
+                        <tr>
+                            {% for key,value in comment.items() %}
+                            {% if comment['answer_id'] == answer['id'] %}
+                                {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
+                                    <td>
+                                        {{ value }}
+                                    </td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                        <tr>
+                    {% endfor %}
+           </table>
 
         {% endfor %}
 

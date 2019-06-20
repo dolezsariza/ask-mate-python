@@ -178,34 +178,6 @@ def get_edit_message(cursor, question_id):
     return data
 
 
-# innentől még CSV
-def read_data(file):
-
-    list_of_dicts = connection.read_file(file)
-    sorted_list_of_dicts = sorted(list_of_dicts, key=lambda k: k['submission_time'], reverse=True)
-
-    return sorted_list_of_dicts
-
-
-def unix_to_utc(list_of_dict):
-    for dict_ in list_of_dict:
-        dict_["submission_time"] = datetime.utcfromtimestamp(int(dict_["submission_time"])).strftime('%Y.%m.%d. %H:%M:%S')
-    return list_of_dict
-
-
-def get_question_or_answers(id_, list_of_dicts, id_type):
-    data = []
-    for item in list_of_dicts:
-        if id_ == item[id_type]:
-            data.append(item)
-    return data
-
-
-def generate_new_id(file_path):
-    length_of_file = len(read_data(file_path))
-    id_ = length_of_file
-    return id_
-
 
 @connection.connection_handler
 def raise_views_number(cursor, question_id):
@@ -216,6 +188,18 @@ def raise_views_number(cursor, question_id):
                     
                     """,
                    {'question_id': question_id})
+
+
+@connection.connection_handler
+def decrease_views_number(cursor, question_id):
+    cursor.execute("""
+                    UPDATE question
+                    SET view_number = view_number - 1
+                    WHERE id = %(question_id)s;
+
+                    """,
+                   {'question_id': question_id})
+
 
 @connection.connection_handler
 def get_answer_ids(cursor,question_id):

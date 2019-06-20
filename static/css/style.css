@@ -125,10 +125,17 @@ table {
 
 #comment {
 	background-color: #ffffff;
-	color: #000000;
+	color: #bbbbbb;
 	margin: 10 px;
   }
 
+#answers {
+	color: #000000;
+}
+
+#question {
+	color: #191970;
+}
 button {
 	margin: 30px;
 	background-color: white;

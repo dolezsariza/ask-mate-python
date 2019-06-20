@@ -23,15 +23,19 @@ def route_question(question_id):
     answers = data_manager.read_answers(question_id)
     comments_q = data_manager.read_comments_question(question_id)
     answer_ids = data_manager.get_answer_ids(question_id)
-    """for answer_id in answer_ids:
-        for value in answer_id.values():
-            comments_a = data_manager.get_comments_by_answer_id(value)"""
+    if len(answer_ids) == 0:
+        comments_a = []
+    else:
+        for answer_id in answer_ids:
+            for value in answer_id:
+                new = answer_id[value]
+                comments_a = data_manager.get_comments_by_answer_id(new)
 
     return render_template('question.html',
                            question=question,
                            answers=answers,
-                           comments_q=comments_q)
-                           #comments_a=comments_a)
+                           comments_q=comments_q,
+                           comments_a=comments_a)
 
 @app.route('/add-question', methods=["GET", 'POST'])
 def route_add_question():
@@ -67,6 +71,12 @@ def edit_question(question_id):
 
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id):
+    answer_ids = data_manager.get_answer_ids(question_id)
+    for answer_id in answer_ids:
+        for value in answer_id:
+            new = answer_id[value]
+
+    data_manager.delete('comment', 'answer_id', new)
     data_manager.delete('comment','question_id',question_id)
     data_manager.delete('answer','question_id',question_id)
     data_manager.delete('question','id',question_id)
@@ -84,6 +94,7 @@ def post_answer(question_id):
 
 @app.route('/answer/<answer_id>/delete')
 def delete_answer(answer_id):
+    data_manager.delete('comment', 'answer_id', answer_id)
     data_manager.delete('comment','answer_id',answer_id)
     data_manager.delete('answer','id',answer_id)
     return redirect("/")
@@ -118,12 +129,14 @@ def post_comment_to_answer(answer_id):
 @app.route('/question/<question_id>/vote/up')
 def vote_up_question(question_id):
     data_manager.up_vote_question(question_id)
+    data_manager.decrease_views_number(question_id)
     return redirect(url_for('route_question', question_id=question_id))
 
 
 @app.route('/question/<question_id>/vote/down')
 def vote_down_question(question_id):
     data_manager.down_vote_question(question_id)
+    data_manager.decrease_views_number(question_id)
     return redirect(url_for('route_question', question_id=question_id))
 
 
