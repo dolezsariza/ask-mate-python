@@ -25,7 +25,8 @@ def route_question(question_id):
 
     answers = data_manager.read_answers(question_id)
 
-    comments = data_manager.read_comments(question_id)
+    comments = data_manager.read_comments_question(question_id)
+    #comments_a = data_manager.read_comments_answer(answer_id)
 
     return render_template('question.html', question=question, answers=answers, comments=comments)
 
@@ -65,7 +66,6 @@ def post_comment_to_question(question_id):
 
     return render_template('add-comment-q.html', question_id=question_id)
 
-
 @app.route('/answer/<answer_id>/delete')
 def delete_answer(answer_id):
     data_manager.delete('comment','answer_id',answer_id)
@@ -82,7 +82,7 @@ def delete_comment_from_question(comment_id):
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
-        port=8000,
+        port=9000,
         debug=True,
     )
 

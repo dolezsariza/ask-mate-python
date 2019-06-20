@@ -35,13 +35,6 @@ def add_new_question_SQL(cursor,title,message):
 
 
 @connection.connection_handler
-def add_new_comment_to_answer(cursor,message,answer_id):
-    cursor.execute("""
-                    INSERT INTO comment(answer_id,message) VALUES (%(answer_id)s,%(message)s)
-                    """,
-                   {'answer_id':answer_id,'message':message})
-
-@connection.connection_handler
 def add_new_comment_to_question(cursor,message,question_id):
     cursor.execute("""
                     INSERT INTO comment(question_id,message) VALUES (%(question_id)s,%(message)s)
@@ -78,7 +71,7 @@ def read_answers(cursor,question_id):
     return data
 
 @connection.connection_handler
-def read_comments(cursor,question_id):
+def read_comments_question(cursor,question_id):
     cursor.execute("""
                     SELECT * FROM comment
                     WHERE question_id=%(question_id)s;
@@ -87,6 +80,7 @@ def read_comments(cursor,question_id):
 
     data = cursor.fetchall()
     return data
+
 
 @connection.connection_handler
 def delete(cursor, table, parameter, value):

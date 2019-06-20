@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+<h1>Question</h1>
     <table border="1">
         <tr>
         <th>Id</th>
@@ -28,10 +29,11 @@
             </tr>
 
     </table>
-    <h1>Answers</h1>
+
+    <h2>Answers</h2>
     <table border="1">
         <tr>
-        <th>delete</th>
+        <th>   </th>
         <th>Id</th>
         <th>Submission time</th>
         <th>Number of votes</th>
@@ -46,7 +48,9 @@
                     {%  if key == 'id' %}
                         <td>
                             <a href="{{ url_for('delete_answer',answer_id= answer[key])}}">DELETE</a>
+
                         </td>
+
                     {% endif %}
                     <td>
                         {{ answer[key] }}
@@ -60,21 +64,20 @@
         {% endfor %}
 
     </table>
-    <h1>Comments</h1>
+        <h2>Comments</h2>
     <table border="1">
         <tr>
-        <th>delete</th>
+        <th>    </th>
         <th>Id</th>
-        <th>Submission time</th>
-        <th>Number of votes</th>
         <th>Message</th>
-        <th>Image</th>
+        <th>Submission time</th>
+
         </tr>
 
         {% for comment in comments %}
             <tr>
                 {% for key in comment %}
-                    {% if key != 'question_id' and key != 'answer_id' and key != 'edited_count' %}
+                    {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
                     {%  if key == 'id' %}
                         <td>
                             <a href="{{ url_for('delete_comment_from_question',comment_id= comment[key])}}">DELETE</a>
@@ -90,12 +93,13 @@
 
             </tr>
         {% endfor %}
-
     </table>
-    <br>
-    <a href="/question/{{ question.id }}/new-answer"><button><b>Post new answer</b></button></a>
-    <a href="/question/{{ question.id }}/new-comment"><button><b>Post new comment</b></button></a>
+
+
+
+    <a href="/question/{{ question.id }}/new-comment"><button><b>Post new comment to question</b></button></a>
     <a href="/question/{{ question.id }}/delete"><button><b>Delete question</b></button></a>
+    <a href="/question/{{ question.id }}/new-answer"><button><b>Post new answer</b></button></a>
     <a href="/list"><button><b>Go back to main</b></button></a>
 
 
