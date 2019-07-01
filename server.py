@@ -1,10 +1,13 @@
-from flask import Flask, request, redirect, render_template, url_for
+from flask import Flask, request, redirect, render_template, url_for, session
 
 import data_manager
 
 app = Flask(__name__)
 
-@app.route('/')
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]iza/'
+
+
+@app.route('/index')
 def main():
     questions = data_manager.show_latest_questions()
     return render_template('list.html',questions=questions)
@@ -43,7 +46,7 @@ def route_add_question():
         title = request.form['title']
         message = request.form['message']
         data_manager.add_new_question_SQL(title,message)
-        return redirect('/')
+        return redirect('/index')
 
     return render_template('add-question.html')
 
@@ -54,7 +57,7 @@ def edit_question(question_id):
         title = request.form['title']
         message = request.form['message']
         data_manager.edit_question_SQL(title, message, question_id)
-        return redirect('/')
+        return redirect('/index')
 
     title_original = 0
     edit_title_data = data_manager.get_edit_title(question_id)
@@ -74,7 +77,7 @@ def edit_answer(answer_id):
     if request.method == 'POST':
         message = request.form['message']
         data_manager.edit_answer_SQL(message, answer_id)
-        return redirect('/')
+        return redirect('/index')
 
     message_original = 0
     edit_message_data = data_manager.get_edit_message_answer(answer_id)
@@ -96,7 +99,7 @@ def delete_question(question_id):
     data_manager.delete('comment','question_id',question_id)
     data_manager.delete('answer','question_id',question_id)
     data_manager.delete('question','id',question_id)
-    return redirect("/")
+    return redirect("/index")
 
 
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
@@ -113,7 +116,7 @@ def delete_answer(answer_id):
     data_manager.delete('comment', 'answer_id', answer_id)
     data_manager.delete('comment','answer_id',answer_id)
     data_manager.delete('answer','id',answer_id)
-    return redirect("/")
+    return redirect("/index")
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def post_comment_to_question(question_id):
@@ -128,7 +131,7 @@ def post_comment_to_question(question_id):
 def delete_comment(comment_id):
     data_manager.delete('comment','id',comment_id)
 
-    return redirect("/")
+    return redirect("/index")
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
@@ -136,7 +139,7 @@ def post_comment_to_answer(answer_id):
     if request.method == 'POST':
         message=request.form['message']
         data_manager.add_new_comment_to_answer(message,answer_id)
-        return redirect("/")
+        return redirect("/index")
 
     return render_template('add-comment-a.html', answer_id=answer_id)
 
@@ -156,15 +159,17 @@ def vote_down_question(question_id):
     return redirect(url_for('route_question', question_id=question_id))
 
 
-@app.route('/answer/<answer_id>/vote/up')
-def vote_up_answer(answer_id):
-    return redirect('/')
+#visibility line for new FUNKtions
 
-@app.route('/answer/<answer_id>/vote/down')
-def vote_down_answer(answer_id):
-    return redirect('/')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        print(session)
+        return redirect('/index')
 
-
+    return render_template('login.html')
 
 
 if __name__ == '__main__':
