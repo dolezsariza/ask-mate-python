@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
 </head>
 <body>
-    <p><input type="text" name="username"></p><br>
-    <p><input type="password" name="password"></p><br>
-    <p><input type="text" name="email"></p><br>
+    <form action="/register" method="post">
+        <h1>Register new user</h1><br>
+        Username<br>
+        <p><input type="text" name="username"></p><br>
+        Password<br>
+        <p><input type="password" name="password"></p><br>
+        E-mail address<br>
+        <p><input type="text" name="email"></p><br>
+        <p><input type="submit" value="Submit"></p><br>
+    </form>
 </body>
 </html>

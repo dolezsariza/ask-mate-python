@@ -1,7 +1,18 @@
 from datetime import datetime
 from psycopg2 import sql
+import bcrypt
 
 import connection
+
+
+def hash_password(plain_text_password):
+    hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
+    return hashed_bytes.decode('utf-8')
+
+
+def verify_password(plain_text_password, hashed_password):
+    hashed_bytes_password = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
 
 
 @connection.connection_handler
@@ -243,14 +254,32 @@ def get_comments_by_answer_id(cursor,answer_id):
     return data
 
 
-#There should be a page where I can list all the registered users with all their attributes.
-
 @connection.connection_handler
 def get_users(cursor):
     cursor.execute("""
                     SELECT * FROM users
                     ORDER BY id;
                     """)
+
+    data = cursor.fetchall()
+    return data
+
+@connection.connection_handler
+def add_user(cursor, username, password, email):
+    cursor.execute("""
+                    INSERT INTO users(username, password, email) 
+                    VALUES (%(username)s,%(password)s,%(email)s);
+                   """,
+                   {'username': username, 'password': password, 'email': email})
+
+
+@connection.connection_handler
+def get_user_hash(cursor, username):
+    cursor.execute("""
+                    SELECT password FROM users
+                    WHERE username = %(username)s;
+                    """,
+                    {'username': username})
 
     data = cursor.fetchall()
     return data
