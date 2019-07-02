@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List of questions</title>
-    <link rel="stylesheet" href="static/css/style.css">
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
+
+    <body>
 
     <h1>Questions</h1>
     <div class="logout"><a href="/logout"><button>Logout</button></a></div>
@@ -42,6 +38,5 @@
     <a href="/list"><button><b>Show all questions</b></button></a>
     <a href="/add-question"><button><b>Add question</b></button></a>
     <a href="/users"><button><b>Show users</b></button></a>
-    <a href="/index"><button><b>Index</b></button></a>
-</body>
-</html>
+{% include "footer.html" %}
+{% endblock %}

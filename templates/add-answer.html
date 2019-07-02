@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Post Answer</title>
-    </head>
-    <body>
+{% extends "layout.html" %}
+{% block content %}
     <form action="{{ url_for('post_answer',question_id=question_id) }}" method="post">
-        <h1><label for="message">Answer</label></h1>
-        <textarea id="message" name="message" cols="50" rows="10" required></textarea><br>
+        <h1><label for="message">New Answer</label></h1>
+            <textarea id="message" name="message" cols="50" rows="10" required></textarea><br>
         <button type="submit">Post Answer</button>
-
     </form>
-    </body>
-</html>
+
+{% include 'footer.html' %}
+{% endblock %}

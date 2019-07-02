@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List of users</title>
-    <link rel="stylesheet" href="static/css/style.css">
-</head>
-<body>
-
+{% extends "layout.html" %}
+{% block content %}
     <h1>Users</h1>
 
-        <table border="1">
-            <th>Id</th>
-            <th>Username</th>
-            <th>E-mail</th>
+    <table border="1">
+        <th>Id</th>
+        <th>Username</th>
+        <th>E-mail</th>
 
         {% for user in users %}
             <tr>
@@ -28,8 +21,8 @@
 
             </tr>
         {% endfor %}
-        </table>
-        <br>
-    <a href="/index"><button><b>Index</b></button></a>
-</body>
-</html>
+    </table>
+
+
+{% include 'footer.html' %}
+{% endblock %}

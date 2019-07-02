@@ -126,7 +126,7 @@ table {
 #comment {
 	background-color: #ffffff;
 	color: #bbbbbb;
-	margin: 10 px;
+	margin: 10px;
   }
 
 #answers {
@@ -157,4 +157,14 @@ button {
 	top: 0px;
 	right: 70px;
 	padding: 20px;
+}
+
+#noaccess {
+	color: #9c1a1c;
+	background-color: white;
+	font-family: "Times New Roman";
+	font-size: 50px;
+	text-align: center;
+	padding: 40px;
+
 }
