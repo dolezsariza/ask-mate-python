@@ -144,3 +144,13 @@ button {
 	border-bottom-width: 2px;
 	border-color: #99ccff;
 }
+
+#noaccess {
+	color: #9c1a1c;
+	background-color: white;
+	font-family: "Times New Roman";
+	font-size: 50px;
+	text-align: center;
+	padding: 40px;
+
+}

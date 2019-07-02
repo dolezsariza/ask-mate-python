@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>New question</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-    <body>
-        <h1>
-            New question
-        </h1>
-        <br>
-        <form action="/add-question" method="POST">
-            <b>Title</b><br>
-            <input type="text" name="title" required>
-            <br>
-            <br>
-            <b>Write a question</b><br>
-            <textarea name="message" cols="50" rows="10" required></textarea>
-            <br>
-            <br>
-            <button type="submit"><b>Submit question</b></button>
-        </form>
-        <br>
-        <br>
-        <a href="/list"><button><b>Back</b></button></a>
+{% extends "layout.html" %}
 
-    </body>
-</html>
+{% block content %}
+
+    <h1>
+        New question
+    </h1>
+    <br>
+    <form action="/add-question" method="POST">
+        <b>Title</b><br>
+        <input type="text" name="title" required>
+        <br>
+        <br>
+        <b>Write a question</b><br>
+        <textarea name="message" cols="50" rows="10" required></textarea>
+        <br>
+        <br>
+        <button type="submit"><b>Submit question</b></button>
+    </form>
+    <br>
+    <br>
+    <a href="/list"><button><b>Back</b></button></a>
+
+
+{% include 'footer.html' %}
+{% endblock %}

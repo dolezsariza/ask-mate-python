@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        h1 {
-            color: #9C1A1C;
-        }
-    </style>
-</head>
-<body>
-    <h1>ACCESS DENIED</h1><br>
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1 id="noaccess">ACCESS DENIED</h1><br>
+    <a href="/login"><button>Try again</button></a>
     <br>
-    <a href="/login"><button><b>Back</b></button></a>
-</body>
-</html>
+{% endblock %}

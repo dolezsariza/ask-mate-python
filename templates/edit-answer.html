@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Edit answer</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-    <body>
-        <h1>
+{% extends "layout.html" %}
+{% block content %}
+    <h1>
             Edit answer
         </h1>
         <br>
@@ -18,9 +12,6 @@
             <br>
             <button type="submit"><b>Submit edit</b></button>
         </form>
-        <br>
-        <br>
-        <a href="/list"><button><b>Back</b></button></a>
 
-    </body>
-</html>
+{% include 'footer.html' %}
+{% endblock %}

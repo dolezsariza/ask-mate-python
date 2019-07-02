@@ -1,58 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Details of question</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-<h1>Question</h1>
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Question</h1>
     <table id="question">
         <tr>
-        <th>Id</th>
-        <th>Submission time</th>
-        <th>Number of views</th>
-        <th>Number of votes</th>
-        <th>Title</th>
-        <th>Message</th>
-        <th>Image</th>
+            <th>Id</th>
+            <th>Submission time</th>
+            <th>Number of views</th>
+            <th>Number of votes</th>
+            <th>Title</th>
+            <th>Message</th>
+            <th>Image</th>
         </tr>
-            <tr>
-                <td>{{ question.id }}</td>
-                <td>{{ question.submission_time }}</td>
-                <td>{{ question.view_number }}</td>
-                <td>{{ question.vote_number }}</td>
-                <td>{{ question.title }}</td>
-                <td>{{ question.message }}</td>
-                <td>{{ question.image }}</td>
+        <tr>
+            <td>{{ question.id }}</td>
+            <td>{{ question.submission_time }}</td>
+            <td>{{ question.view_number }}</td>
+            <td>{{ question.vote_number }}</td>
+            <td>{{ question.title }}</td>
+            <td>{{ question.message }}</td>
+            <td>{{ question.image }}</td>
 
-            </tr>
+        </tr>
 
     </table>
-<br>
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
+    <br>
     <h2>Answers</h2>
     {% for answer in answers %}
-    <table id="answers">
-        <tr>
-        <th>Id</th>
-        <th>Submission time</th>
-        <th>Number of votes</th>
-        <th>Message</th>
-        <th>Image</th>
-        <th>   </th>
-        <th>   </th>
-        </tr>
+        <table id="answers">
+            <tr>
+                <th>Id</th>
+                <th>Submission time</th>
+                <th>Number of votes</th>
+                <th>Message</th>
+                <th>Image</th>
+                <th>   </th>
+                <th>   </th>
+            </tr>
 
 
             <tr>
                 {% for key in answer %}
                     {% if key != 'question_id' %}
-                    <td>
-                        {{ answer[key] }}
-                    </td>
+                        <td>
+                            {{ answer[key] }}
+                        </td>
                     {% endif %}
 
                 {% endfor %}
@@ -61,52 +55,45 @@
                     <a href="{{ url_for('delete_answer',answer_id= answer['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
                 </td>
                 <td>
-                     <a href="{{ url_for('post_comment_to_answer',answer_id= answer['id'])}}">COMMENT</a>
+                    <a href="{{ url_for('post_comment_to_answer',answer_id= answer['id'])}}">COMMENT</a>
                     <br>
                     <br>
                     <a href="{{ url_for('edit_answer',answer_id= answer['id'])}}">EDIT</a>
                 </td>
             </tr>
-    </table>
-<br><h3>Comments for answer</h3>
-           <table id="comment" border="1">
-                <tr>
+        </table>
+        <br><h3>Comments for answer</h3>
+        <table id="comment" border="1">
+            <tr>
                 <th>Id</th>
                 <th>Message</th>
                 <th>Submission time</th>
                 <th> </th>
-                </tr>
+            </tr>
 
-                    {% for comment in comments_a %}
-                        <tr>
-                            {% for key,value in comment.items() %}
-                            {% if comment['answer_id'] == answer['id'] %}
-                                {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
-                                    <td>
-                                        {{ value }}
-                                    </td>
-                                    {% endif %}
-                                {% endif %}
+            {% for comment in comments_a %}
+                <tr>
+                    {% for key,value in comment.items() %}
+                        {% if comment['answer_id'] == answer['id'] %}
+                            {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
+                                <td>
+                                    {{ value }}
+                                </td>
+                            {% endif %}
+                        {% endif %}
 
-                            {% endfor %}
-                            <td><a href="{{ url_for('delete_comment',comment_id = comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></td>
-                        <tr>
                     {% endfor %}
-           </table>
+                    <td><a href="{{ url_for('delete_comment',comment_id = comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></td>
+                <tr>
+            {% endfor %}
+        </table>
 
-        {% endfor %}
+    {% endfor %}
 
-
-
-
-
-
-<br>
-<br>
-<br>
-<br>
-        <h2>Comments</h2>
-        <table border="1">
+    <br>
+    <br>
+    <h2>Comments</h2>
+    <table border="1">
 
 
         {% for comment in comments_q %}
@@ -120,24 +107,22 @@
             <tr>
                 {% for key in comment %}
                     {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
-                    <td>
-                        {{ comment[key] }}
-                    </td>
+                        <td>
+                            {{ comment[key] }}
+                        </td>
                     {% endif %}
                 {% endfor %}
-            <td>
-                <a href="{{ url_for('delete_comment',comment_id= comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
-            </td>
+                <td>
+                    <a href="{{ url_for('delete_comment',comment_id= comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
+                </td>
             </tr>
         {% endfor %}
     </table>
 
-<br>
-<br>
-<br>
-<br>
-
-
+    <br>
+    <br>
+    <br>
+    <br>
 
     <a href="/question/{{ question.id }}/vote/up"><button><b>Upvote</b></button></a>
     <a href="/question/{{ question.id }}/vote/down"><button><b>Downvote</b></button></a>
@@ -145,8 +130,7 @@
     <a href="/question/{{ question.id }}/new-comment"><button><b>Post new comment to question</b></button></a>
     <a href="/question/{{ question.id }}/delete"><button><b>Delete question</b></button></a>
     <a href="/question/{{ question.id }}/edit-question"><button><b>Edit question</b></button></a>
-    <a href="/list"><button><b>Go back to main</b></button></a>
 
 
-</body>
-</html>
+{% include 'footer.html' %}
+{% endblock %}
