@@ -7,19 +7,33 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]iza/'
 
 
+def login_required(func):
+    def wrapper():
+        try:
+            temp = session['username']
+        except KeyError:
+            return render_template('denied.html')
+        return func()
+    return wrapper
+
+
 @app.route('/index')
+@login_required
 def main():
+    username = session['username']
     questions = data_manager.show_latest_questions()
-    return render_template('list.html',questions=questions)
+    return render_template('list.html',questions=questions, username=username)
 
 
 @app.route('/list')
+@login_required
 def route_list():
     questions = data_manager.read_questions()
     return render_template('list.html', questions=questions)
 
 
 @app.route('/question/<question_id>', methods=["GET"])
+@login_required
 def route_question(question_id):
     data_manager.raise_views_number(question_id)
     question = data_manager.get_question_by_id(question_id)
@@ -41,6 +55,7 @@ def route_question(question_id):
                            comments_a=comments_a)
 
 @app.route('/add-question', methods=["GET", 'POST'])
+@login_required
 def route_add_question():
     if request.method == 'POST':
         title = request.form['title']
@@ -52,6 +67,7 @@ def route_add_question():
 
 
 @app.route('/question/<question_id>/edit-question', methods=["GET", "POST"])
+@login_required
 def edit_question(question_id):
     if request.method == 'POST':
         title = request.form['title']
@@ -73,6 +89,7 @@ def edit_question(question_id):
     return render_template('edit-question.html', question_id = question_id, title_original = title_original, message_original = message_original)
 
 @app.route('/answer/<answer_id>/edit-answer', methods=["GET", "POST"])
+@login_required
 def edit_answer(answer_id):
     if request.method == 'POST':
         message = request.form['message']
@@ -89,6 +106,7 @@ def edit_answer(answer_id):
 
 
 @app.route('/question/<question_id>/delete')
+@login_required
 def delete_question(question_id):
     answer_ids = data_manager.get_answer_ids(question_id)
     if len(answer_ids) != 0:
@@ -104,6 +122,7 @@ def delete_question(question_id):
 
 
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
+@login_required
 def post_answer(question_id):
     if request.method == 'POST':
         message=request.form['message']
@@ -113,6 +132,7 @@ def post_answer(question_id):
 
 
 @app.route('/answer/<answer_id>/delete')
+@login_required
 def delete_answer(answer_id):
     data_manager.delete('comment', 'answer_id', answer_id)
     data_manager.delete('comment','answer_id',answer_id)
@@ -120,6 +140,7 @@ def delete_answer(answer_id):
     return redirect("/index")
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+@login_required
 def post_comment_to_question(question_id):
     if request.method == 'POST':
         message=request.form['message']
@@ -129,6 +150,7 @@ def post_comment_to_question(question_id):
     return render_template('add-comment-q.html', question_id=question_id)
 
 @app.route('/comments/<comment_id>/delete')
+@login_required
 def delete_comment(comment_id):
     data_manager.delete('comment','id',comment_id)
 
@@ -136,6 +158,7 @@ def delete_comment(comment_id):
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
+@login_required
 def post_comment_to_answer(answer_id):
     if request.method == 'POST':
         message=request.form['message']
@@ -147,6 +170,7 @@ def post_comment_to_answer(answer_id):
 
 
 @app.route('/question/<question_id>/vote/up')
+@login_required
 def vote_up_question(question_id):
     data_manager.up_vote_question(question_id)
     data_manager.decrease_views_number(question_id)
@@ -154,6 +178,7 @@ def vote_up_question(question_id):
 
 
 @app.route('/question/<question_id>/vote/down')
+@login_required
 def vote_down_question(question_id):
     data_manager.down_vote_question(question_id)
     data_manager.decrease_views_number(question_id)
@@ -179,6 +204,13 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect('/login')
+
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -191,6 +223,7 @@ def register():
     return render_template('register.html')
 
 @app.route("/users")
+@login_required
 def list_all_users():
     users = data_manager.get_users()
 

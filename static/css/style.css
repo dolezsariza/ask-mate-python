@@ -144,3 +144,17 @@ button {
 	border-bottom-width: 2px;
 	border-color: #99ccff;
 }
+
+.logout {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 20px;
+}
+
+.username {
+	position: absolute;
+	top: 0px;
+	right: 70px;
+	padding: 20px;
+}
