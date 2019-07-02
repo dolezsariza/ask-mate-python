@@ -166,11 +166,28 @@ def vote_down_question(question_id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        session['username'] = request.form['username']
-        print(session)
-        return redirect('/index')
+        username = request.form['username']
+        password = request.form['password']
+        hash = data_manager.get_user_hash(username)[0]['password']
+        access = data_manager.verify_password(password, hash)
+        if access == True:
+            session['username'] = request.form['username']
+            return redirect('/index')
+        if access == False:
+            return render_template('denied.html')
 
     return render_template('login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = data_manager.hash_password(request.form['password'])
+        email = request.form['email']
+        data_manager.add_user(username, password, email)
+        return redirect('/login')
+
+    return render_template('register.html')
 
 
 if __name__ == '__main__':
