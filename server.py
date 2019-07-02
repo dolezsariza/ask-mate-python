@@ -172,6 +172,12 @@ def login():
 
     return render_template('login.html')
 
+@app.route("/users")
+def list_all_users():
+    users = data_manager.get_users()
+
+    return render_template('users.html',users=users)
+
 
 if __name__ == '__main__':
     app.run(

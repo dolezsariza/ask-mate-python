@@ -241,3 +241,16 @@ def get_comments_by_answer_id(cursor,answer_id):
 
     data = cursor.fetchall()
     return data
+
+
+#There should be a page where I can list all the registered users with all their attributes.
+
+@connection.connection_handler
+def get_users(cursor):
+    cursor.execute("""
+                    SELECT * FROM users
+                    ORDER BY id;
+                    """)
+
+    data = cursor.fetchall()
+    return data
