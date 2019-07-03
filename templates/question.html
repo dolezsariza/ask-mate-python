@@ -34,25 +34,17 @@
             <tr>
                 <th>Id</th>
                 <th>Submission time</th>
-                <th>Number of votes</th>
                 <th>Message</th>
-                <th>Image</th>
                 <th>Username</th>
                 <th>   </th>
                 <th>   </th>
 
             </tr>
-
-
             <tr>
-                {% for key in answer %}
-                    {% if key != 'question_id' %}
-                        <td>
-                            {{ answer[key] }}
-                        </td>
-                    {% endif %}
-
-                {% endfor %}
+                <td>{{ answer.id }}</td>
+                <td>{{ answer.submission_time }}</td>
+                <td>{{ answer.message }}</td>
+                <td>{{ answer.username }}</td>
 
                 <td>
                     <a href="{{ url_for('delete_answer',answer_id= answer['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
@@ -71,28 +63,24 @@
                 <th>Id</th>
                 <th>Message</th>
                 <th>Submission time</th>
-                <th> </th>
                 <th>Username</th>
+                <th> </th>
             </tr>
 
             {% for comment in comments_a %}
                 <tr>
-                    {% for key,value in comment.items() %}
-                        {% if comment['answer_id'] == answer['id'] %}
-                            {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
-                                <td>
-                                    {{ value }}
-                                </td>
-                            {% endif %}
-                        {% endif %}
-
-                    {% endfor %}
-                    <td><a href="{{ url_for('delete_comment',comment_id = comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></td>
-                <tr>
+                    {% if comment['answer_id'] == answer['id'] %}
+                        <td>{{ comment.id }}</td>
+                        <td>{{ comment.message }}</td>
+                        <td>{{ comment.submission_time }}</td>
+                        <td>{{ comment.username }}</td>
+                        <td><a href="{{ url_for('delete_comment',comment_id = comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></td>
+                    {% endif %}
+                </tr>
             {% endfor %}
-        </table>
 
-    {% endfor %}
+        {% endfor %}
+        </table>
 
     <br>
     <br>
@@ -102,21 +90,17 @@
 
         {% for comment in comments_q %}
             <tr>
-
                 <th>Id</th>
                 <th>Message</th>
                 <th>Submission time</th>
+                <th>Username</th>
                 <th> </th>
-                <th> Username </th>
             </tr>
             <tr>
-                {% for key in comment %}
-                    {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
-                        <td>
-                            {{ comment[key] }}
-                        </td>
-                    {% endif %}
-                {% endfor %}
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.message }}</td>
+                <td>{{ comment.submission_time }}</td>
+                <td>{{ comment.username }}</td>
                 <td>
                     <a href="{{ url_for('delete_comment',comment_id= comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
                 </td>
