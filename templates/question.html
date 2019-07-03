@@ -19,6 +19,7 @@
             <td>{{ question.title }}</td>
             <td>{{ question.message }}</td>
             <td>{{ question.image }}</td>
+            <td>{{ question.username }}</td>
 
         </tr>
 
@@ -36,8 +37,10 @@
                 <th>Number of votes</th>
                 <th>Message</th>
                 <th>Image</th>
+                <th>Username</th>
                 <th>   </th>
                 <th>   </th>
+
             </tr>
 
 
@@ -69,6 +72,7 @@
                 <th>Message</th>
                 <th>Submission time</th>
                 <th> </th>
+                <th>Username</th>
             </tr>
 
             {% for comment in comments_a %}
@@ -103,6 +107,7 @@
                 <th>Message</th>
                 <th>Submission time</th>
                 <th> </th>
+                <th> Username </th>
             </tr>
             <tr>
                 {% for key in comment %}

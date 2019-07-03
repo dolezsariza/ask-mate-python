@@ -13,6 +13,7 @@
             <th>Number of views</th>
             <th>Number of votes</th>
             <th>Title</th>
+            <th>Username</th>
 
         {% for question in questions %}
             <tr>
@@ -30,6 +31,9 @@
                 </td>
                 <td>
                     <a href="/question/{{ question.id }}">{{question.title}}</a>
+                </td>
+                <td>
+                    {{ question.username }}
                 </td>
             </tr>
         {% endfor %}

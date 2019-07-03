@@ -35,13 +35,13 @@ def get_question_by_id(cursor,question_id):
     return data[0]
 
 @connection.connection_handler
-def add_new_question_SQL(cursor,title,message):
+def add_new_question_SQL(cursor,title,message, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                       INSERT INTO question(title, message, submission_time, view_number, vote_number) 
-                       VALUES (%(title)s,%(message)s,%(submission_time)s, 0, 0);
+                       INSERT INTO question(title, message, submission_time, view_number, vote_number, username) 
+                       VALUES (%(title)s,%(message)s,%(submission_time)s, 0, 0, %(username)s);
                        """,
-                   {'title': title, 'message': message, 'submission_time': submission_time})
+                   {'title': title, 'message': message, 'submission_time': submission_time, 'username': username})
 
 @connection.connection_handler
 def edit_question_SQL(cursor,title,message,question_id):
@@ -64,29 +64,31 @@ def edit_answer_SQL(cursor,message,answer_id):
 
 
 @connection.connection_handler
-def add_new_answer_SQL(cursor,message,question_id):
+def add_new_answer_SQL(cursor,message,question_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                   INSERT INTO answer(message,question_id,vote_number,submission_time) 
-                   VALUES (%(message)s,%(question_id)s, 0, %(submission_time)s);
+                   INSERT INTO answer(message,question_id,vote_number,submission_time, username) 
+                   VALUES (%(message)s,%(question_id)s, 0, %(submission_time)s, %(username)s);
                    """,
-                   {'message': message,'question_id': question_id, 'submission_time': submission_time})
+                   {'message': message,'question_id': question_id, 'submission_time': submission_time,'username':username})
 
 @connection.connection_handler
-def add_new_comment_to_question(cursor,message,question_id):
+def add_new_comment_to_question(cursor,message,question_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                    INSERT INTO comment(question_id,message,submission_time) VALUES (%(question_id)s,%(message)s,%(submission_time)s)
+                    INSERT INTO comment(question_id,message,submission_time, username) 
+                    VALUES (%(question_id)s,%(message)s,%(submission_time)s, %(username)s);
                     """,
-                   {'question_id':question_id,'message':message,'submission_time':submission_time})
+                   {'question_id':question_id,'message':message,'submission_time':submission_time,'username':username})
 
 @connection.connection_handler
-def add_new_comment_to_answer(cursor,message,answer_id):
+def add_new_comment_to_answer(cursor,message,answer_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                    INSERT INTO comment(answer_id,message,submission_time) VALUES (%(answer_id)s,%(message)s,%(submission_time)s)
+                    INSERT INTO comment(answer_id,message,submission_time, username) 
+                    VALUES (%(answer_id)s,%(message)s,%(submission_time)s, %(username)s);
                     """,
-                   {'answer_id':answer_id,'message':message,'submission_time':submission_time})
+                   {'answer_id':answer_id,'message':message,'submission_time':submission_time, 'username':username})
 
 @connection.connection_handler
 def read_questions(cursor):

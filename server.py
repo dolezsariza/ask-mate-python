@@ -60,7 +60,8 @@ def route_add_question():
     if request.method == 'POST':
         title = request.form['title']
         message = request.form['message']
-        data_manager.add_new_question_SQL(title,message)
+        username = session['username']
+        data_manager.add_new_question_SQL(title,message,username)
         return redirect('/index')
 
     return render_template('add-question.html')
