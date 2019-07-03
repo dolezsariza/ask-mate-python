@@ -7,13 +7,13 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]iza/'
 
 
-def login_required(func):
-    def wrapper():
+def login_required(func, **kwargs):
+    def wrapper(**kwargs):
         try:
             temp = session['username']
         except KeyError:
             return render_template('denied.html')
-        return func()
+        return func(**kwargs)
     return wrapper
 
 
