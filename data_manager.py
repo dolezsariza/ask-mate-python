@@ -290,5 +290,25 @@ def get_user_hash(cursor, username):
     data = cursor.fetchall()
     return data
 
-#@connection.connection_handler
-#def get_user_data(cursor,):
+@connection.connection_handler
+def get_user_data(cursor,username):
+    cursor.execute("""
+                    SELECT users.id AS user_id,
+                    users.username AS user_name,
+                    email,
+                    question.title AS title,
+                    question.message AS q_message,
+                    comment.message AS c_message,
+                    answer.message AS a_message 
+                    FROM users
+                    LEFT JOIN question
+                    ON (users.id = question.user_id)
+                    LEFT JOIN answer
+                    ON (users.id = answer.user_id)
+                    LEFT JOIN comment
+                    ON (users.id = comment.user_id)
+                    WHERE users.username = %(username)s;
+                    """,
+                   {'username':username})
+
+    return cursor.fetchall()
