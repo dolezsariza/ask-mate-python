@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <h1>Hello {{ username }}!</h1>
+    <p>These are your datas</p>
+    {% for data in user_data %}
+    <table>
+        <thead>
+            <td>ID</td>
+            <td>USERNAME</td>
+            <td>EMAIL</td>
+            <td>QUESTION TITLE</td>
+            <td>QUESTION MESSAGE</td>
+            <td>ANSWER MESSAGE</td>
+            <td>COMMENT MESSAGE</td>
+        </thead>
+        <tbody>
+            <td>{{ data.user_id }}</td>
+            <td>{{ data.user_name }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.title }}</td>
+            <td>{{ data.q_message }}</td>
+            <td>{{ data.a_message }}</td>
+            <td>{{ data.c_message }}</td>
+        </tbody>
+    </table>
+    {% endfor %}
+{% include 'footer.html' %}
+{% endblock %}

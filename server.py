@@ -40,6 +40,15 @@ def route_question(question_id):
     answers = data_manager.read_answers(question_id)
     comments_q = data_manager.read_comments_question(question_id)
     answer_ids = data_manager.get_answer_ids(question_id)
+
+    comments_a = []
+    for answer_id in answer_ids:
+        for value in answer_id:
+            new = answer_id[value]
+            comments_a.append(data_manager.get_comments_by_answer_id(new))
+
+    """
+    
     if len(answer_ids) == 0:
         comments_a = []
     else:
@@ -47,7 +56,7 @@ def route_question(question_id):
             for value in answer_id:
                 new = answer_id[value]
                 comments_a = data_manager.get_comments_by_answer_id(new)
-
+    """
     return render_template('question.html',
                            question=question,
                            answers=answers,
@@ -233,6 +242,13 @@ def list_all_users():
     users = data_manager.get_users()
 
     return render_template('users.html',users=users)
+
+@app.route("/users/hali", endpoint="show_user_data")
+@login_required
+def show_user_data():
+    username = session['username']
+    user_data = data_manager.get_user_data(username)
+    return render_template('user_data.html',user_data=user_data,username=username)
 
 
 
