@@ -127,7 +127,8 @@ def delete_question(question_id):
 def post_answer(question_id):
     if request.method == 'POST':
         message=request.form['message']
-        data_manager.add_new_answer_SQL(message,question_id)
+        username = session['username']
+        data_manager.add_new_answer_SQL(message,question_id,username)
         return redirect(url_for('route_question', question_id=question_id))
     return render_template('add-answer.html',question_id=question_id)
 
@@ -145,7 +146,8 @@ def delete_answer(answer_id):
 def post_comment_to_question(question_id):
     if request.method == 'POST':
         message=request.form['message']
-        data_manager.add_new_comment_to_question(message,question_id)
+        username = session['username']
+        data_manager.add_new_comment_to_question(message,question_id,username)
         return redirect(url_for('route_question', question_id=question_id))
 
     return render_template('add-comment-q.html', question_id=question_id)
@@ -163,7 +165,8 @@ def delete_comment(comment_id):
 def post_comment_to_answer(answer_id):
     if request.method == 'POST':
         message=request.form['message']
-        data_manager.add_new_comment_to_answer(message,answer_id)
+        username = session['username']
+        data_manager.add_new_comment_to_answer(message,answer_id,username)
         return redirect("/index")
 
     return render_template('add-comment-a.html', answer_id=answer_id)
