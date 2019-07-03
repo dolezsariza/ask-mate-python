@@ -38,8 +38,9 @@ def get_question_by_id(cursor,question_id):
 def add_new_question_SQL(cursor,title,message, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                       INSERT INTO question(title, message, submission_time, view_number, vote_number, username) 
-                       VALUES (%(title)s,%(message)s,%(submission_time)s, 0, 0, %(username)s);
+                       INSERT INTO question(title, message, submission_time, view_number, vote_number, username, user_id) 
+                       VALUES (%(title)s,%(message)s,%(submission_time)s, 0, 0, %(username)s,
+                       (SELECT id FROM users WHERE username = %(username)s));
                        """,
                    {'title': title, 'message': message, 'submission_time': submission_time, 'username': username})
 
@@ -67,8 +68,9 @@ def edit_answer_SQL(cursor,message,answer_id):
 def add_new_answer_SQL(cursor,message,question_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                   INSERT INTO answer(message,question_id,vote_number,submission_time, username) 
-                   VALUES (%(message)s,%(question_id)s, 0, %(submission_time)s, %(username)s);
+                   INSERT INTO answer(message,question_id,vote_number,submission_time, username, user_id) 
+                   VALUES (%(message)s,%(question_id)s, 0, %(submission_time)s, %(username)s,
+                   (SELECT id FROM users WHERE username = %(username)s));
                    """,
                    {'message': message,'question_id': question_id, 'submission_time': submission_time,'username':username})
 
@@ -76,8 +78,9 @@ def add_new_answer_SQL(cursor,message,question_id, username):
 def add_new_comment_to_question(cursor,message,question_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                    INSERT INTO comment(question_id,message,submission_time, username) 
-                    VALUES (%(question_id)s,%(message)s,%(submission_time)s, %(username)s);
+                    INSERT INTO comment(question_id,message,submission_time, username,user_id) 
+                    VALUES (%(question_id)s,%(message)s,%(submission_time)s, %(username)s,
+                    (SELECT id FROM users WHERE username = %(username)s));
                     """,
                    {'question_id':question_id,'message':message,'submission_time':submission_time,'username':username})
 
@@ -85,8 +88,9 @@ def add_new_comment_to_question(cursor,message,question_id, username):
 def add_new_comment_to_answer(cursor,message,answer_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                    INSERT INTO comment(answer_id,message,submission_time, username) 
-                    VALUES (%(answer_id)s,%(message)s,%(submission_time)s, %(username)s);
+                    INSERT INTO comment(answer_id,message,submission_time, username, user_id) 
+                    VALUES (%(answer_id)s,%(message)s,%(submission_time)s, %(username)s,
+                    (SELECT id FROM users WHERE username = %(username)s));
                     """,
                    {'answer_id':answer_id,'message':message,'submission_time':submission_time, 'username':username})
 
@@ -285,3 +289,6 @@ def get_user_hash(cursor, username):
 
     data = cursor.fetchall()
     return data
+
+#@connection.connection_handler
+#def get_user_data(cursor,):
