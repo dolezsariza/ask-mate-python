@@ -63,6 +63,14 @@ def edit_answer_SQL(cursor,message,answer_id):
                     """,
                    {'message': message, 'answer_id': answer_id})
 
+@connection.connection_handler
+def edit_comment_SQL(cursor,message,comment_id):
+    cursor.execute("""
+                    UPDATE comment
+                    SET message = %(message)s
+                    WHERE id = %(comment_id)s;
+                    """,
+                   {'message': message, 'comment_id': comment_id})
 
 @connection.connection_handler
 def add_new_answer_SQL(cursor,message,question_id, username):
@@ -214,7 +222,16 @@ def get_edit_message_answer(cursor, answer_id):
     data = cursor.fetchall()
     return data
 
+@connection.connection_handler
+def get_edit_comment(cursor,comment_id):
+    cursor.execute("""
+                    SELECT message FROM comment
+                    WHERE id = %(comment_id)s;
+                    """,
+                   {'comment_id':comment_id})
 
+    data = cursor.fetchall()
+    return data
 
 @connection.connection_handler
 def raise_views_number(cursor, question_id):

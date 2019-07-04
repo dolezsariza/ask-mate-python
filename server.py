@@ -104,6 +104,22 @@ def edit_answer(answer_id):
 
     return render_template('edit-answer.html', answer_id = answer_id, message_original = message_original)
 
+@app.route('/comment/<comment_id>/edit-comment', methods=["GET", "POST"], endpoint='edit_comment')
+@login_required
+def edit_answer(comment_id):
+    if request.method == 'POST':
+        message = request.form['message']
+        data_manager.edit_comment_SQL(message, comment_id)
+        return redirect('/index')
+
+    message_original = 0
+    edit_message_data = data_manager.get_edit_comment(comment_id)
+    for data in edit_message_data:
+        for value in data:
+            message_original = data[value]
+
+    return render_template('edit_comment.html', comment_id = comment_id, message_original = message_original)
+
 
 @app.route('/question/<question_id>/delete', endpoint='delete_question')
 @login_required
