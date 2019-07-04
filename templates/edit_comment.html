@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+        <h1>
+            Edit comment
+        </h1>
+
+        <form action="{{url_for('edit_comment', comment_id = comment_id)}}" method="POST">
+            <textarea name="message" cols="50" rows="10" required>{{ message_original }}</textarea>
+            <br>
+            <br>
+            <button type="submit"><b>Submit edit</b></button>
+        </form>
+
+
+{% include 'footer.html' %}
+{% endblock %}
