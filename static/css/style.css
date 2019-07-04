@@ -117,7 +117,7 @@ footer {
 }
 
 .datarowsub {
-	background-color: #333;
+	background-color: #A5D6D9;
 	width: 100%;
 	color: #f2f2f2;
 	margin-left: 20%;
@@ -131,8 +131,6 @@ footer {
 	padding: 10px 20px;
 	text-decoration: none;
 	font-size: 17px;
-	border-width: 5px;
-	border-color: #f2f2f2;
 	padding-top: 3px;
 	padding-bottom: 3px;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, .9);
@@ -140,12 +138,10 @@ footer {
 
 .datarowsub p {
 	display: block;
-	color: #f2f2f2;
+	color: #333;
 	padding: 10px 20px;
 	text-decoration: none;
 	font-size: 17px;
-	border-width: 5px;
-	border-color: #f2f2f2;
 	padding-top: 3px;
 	padding-bottom: 3px;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, .9);
