@@ -39,14 +39,12 @@
                 <td><p>{{ answer.username }}</p></td>
                 <td><p>{{ answer.message }}</p></td>
                 <td><p>{{ answer.submission_time }}</td>
-                <td><p><a href="{{ url_for('post_comment_to_answer',answer_id= answer['id'])}}">COMMENT</a></p></td>
-
             </tr>
         </table>
 
-        <br><h3>Comments for answer</h3>
+        <br>
         <div class="datarowsub">
-        <table id="comment" border="1">
+        <table id="comment">
             {% for sublist in comments_a %}
                 {% for comment in sublist %}
                 <tr>
@@ -54,7 +52,6 @@
                         <td><p>{{ comment.message }}</p></td>
                         <td><p>{{ comment.submission_time }}</p></td>
                         <td><p>{{ comment.username }}</p></td>
-                        <td><p><a href="{{ url_for('delete_comment',comment_id = comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></p></td>
                     {% endif %}
                 </tr>
 
@@ -63,6 +60,7 @@
         </table>
         </div>
     {% endfor %}
+
 
 {% include "footer.html" %}
 {% endblock %}
