@@ -323,7 +323,8 @@ def get_user_data(cursor, username):
 def get_user_questions(cursor,username):
     cursor.execute("""
                     SELECT question.title AS title,
-                    question.message AS message
+                    question.message AS message,
+                    question.id AS question_id
                     FROM users
                     LEFT JOIN question
                     ON (users.id = question.user_id)
@@ -338,7 +339,8 @@ def get_user_questions(cursor,username):
 @connection.connection_handler
 def get_user_answers(cursor, username):
     cursor.execute("""
-                    SELECT answer.message AS a_message
+                    SELECT answer.message AS a_message,
+                    answer.id AS answer_id
                     FROM users
                     LEFT JOIN answer
                     ON (users.id = answer.user_id)
@@ -352,7 +354,9 @@ def get_user_answers(cursor, username):
 @connection.connection_handler
 def get_user_comments(cursor, username):
     cursor.execute("""
-                    SELECT comment.message AS c_message
+                    SELECT comment.message AS c_message,
+                    comment.id AS comment_id
+                    
                     FROM users
                     LEFT JOIN comment
                     ON (users.id = comment.user_id)

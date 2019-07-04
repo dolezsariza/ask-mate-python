@@ -106,7 +106,7 @@ def edit_answer(answer_id):
 
 @app.route('/comment/<comment_id>/edit-comment', methods=["GET", "POST"], endpoint='edit_comment')
 @login_required
-def edit_answer(comment_id):
+def edit_comment(comment_id):
     if request.method == 'POST':
         message = request.form['message']
         data_manager.edit_comment_SQL(message, comment_id)
