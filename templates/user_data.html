@@ -2,28 +2,76 @@
 {% block content %}
 
     <h1>Hello {{ username }}!</h1>
-    <p>These are your datas</p>
-    {% for data in user_data %}
+    <h2>These are your datas</h2>
     <table>
         <thead>
-            <td>ID</td>
-            <td>USERNAME</td>
-            <td>EMAIL</td>
-            <td>QUESTION TITLE</td>
-            <td>QUESTION MESSAGE</td>
-            <td>ANSWER MESSAGE</td>
-            <td>COMMENT MESSAGE</td>
+            <tr>
+                <td>ID</td>
+                <td>USERNAME</td>
+                <td>EMAIL</td>
+            </tr>
         </thead>
         <tbody>
-            <td>{{ data.user_id }}</td>
-            <td>{{ data.user_name }}</td>
-            <td>{{ data.email }}</td>
-            <td>{{ data.title }}</td>
-            <td>{{ data.q_message }}</td>
-            <td>{{ data.a_message }}</td>
-            <td>{{ data.c_message }}</td>
+    {% for data in user_data %}
+            <tr>
+                <td>{{ data.id }}</td>
+                <td>{{ data.username }}</td>
+                <td>{{ data.email }}</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
-    {% endfor %}
+
+    <h2>Your questions</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>QUESTION TITLE</td>
+                <td>QUESTION MESSAGE</td>
+            </tr>
+        </thead>
+        <tbody>
+    {% for data in user_questions %}
+            <tr>
+                <td>{{ data.title }}</td>
+                <td>{{ data.message }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Your answers</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>ANSWER MESSAGE</td>
+
+            </tr>
+        </thead>
+        <tbody>
+    {% for data in user_answers %}
+            <tr>
+                <td>{{ data.a_message }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Your comments</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>COMMENT MESSAGE</td>
+            </tr>
+        </thead>
+        <tbody>
+    {% for data in user_comments %}
+            <tr>
+                <td>{{ data.c_message }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% include 'footer.html' %}
 {% endblock %}

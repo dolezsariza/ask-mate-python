@@ -291,24 +291,57 @@ def get_user_hash(cursor, username):
     return data
 
 @connection.connection_handler
-def get_user_data(cursor,username):
+def get_user_data(cursor, username):
     cursor.execute("""
-                    SELECT users.id AS user_id,
-                    users.username AS user_name,
-                    email,
-                    question.title AS title,
-                    question.message AS q_message,
-                    comment.message AS c_message,
-                    answer.message AS a_message 
+                    SELECT id, username, email
+                    FROM users
+
+                    WHERE users.username = %(username)s;
+                    """,
+                   {'username': username})
+
+    return cursor.fetchall()
+
+@connection.connection_handler
+def get_user_questions(cursor,username):
+    cursor.execute("""
+                    SELECT question.title AS title,
+                    question.message AS message
                     FROM users
                     LEFT JOIN question
                     ON (users.id = question.user_id)
-                    LEFT JOIN answer
-                    ON (users.id = answer.user_id)
-                    LEFT JOIN comment
-                    ON (users.id = comment.user_id)
+                   
                     WHERE users.username = %(username)s;
                     """,
                    {'username':username})
+
+    return cursor.fetchall()
+
+
+@connection.connection_handler
+def get_user_answers(cursor, username):
+    cursor.execute("""
+                    SELECT answer.message AS a_message
+                    FROM users
+                    LEFT JOIN answer
+                    ON (users.id = answer.user_id)
+
+                    WHERE users.username = %(username)s;
+                    """,
+                   {'username': username})
+
+    return cursor.fetchall()
+
+@connection.connection_handler
+def get_user_comments(cursor, username):
+    cursor.execute("""
+                    SELECT comment.message AS c_message
+                    FROM users
+                    LEFT JOIN comment
+                    ON (users.id = comment.user_id)
+
+                    WHERE users.username = %(username)s;
+                    """,
+                   {'username': username})
 
     return cursor.fetchall()

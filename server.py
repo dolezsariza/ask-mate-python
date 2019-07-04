@@ -47,16 +47,6 @@ def route_question(question_id):
             new = answer_id[value]
             comments_a.append(data_manager.get_comments_by_answer_id(new))
 
-    """
-    
-    if len(answer_ids) == 0:
-        comments_a = []
-    else:
-        for answer_id in answer_ids:
-            for value in answer_id:
-                new = answer_id[value]
-                comments_a = data_manager.get_comments_by_answer_id(new)
-    """
     return render_template('question.html',
                            question=question,
                            answers=answers,
@@ -248,7 +238,15 @@ def list_all_users():
 def show_user_data():
     username = session['username']
     user_data = data_manager.get_user_data(username)
-    return render_template('user_data.html',user_data=user_data,username=username)
+    user_questions = data_manager.get_user_questions(username)
+    user_answers = data_manager.get_user_answers(username)
+    user_comments = data_manager.get_user_comments(username)
+    return render_template('user_data.html',
+                           user_data=user_data,
+                           user_questions=user_questions,
+                           user_answers=user_answers,
+                           user_comments=user_comments,
+                           username=username)
 
 
 
