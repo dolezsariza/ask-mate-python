@@ -28,8 +28,9 @@ def main():
 @app.route('/list', endpoint='route_list')
 @login_required
 def route_list():
+    username = session['username']
     questions = data_manager.read_questions()
-    return render_template('list.html', questions=questions)
+    return render_template('list.html', questions=questions, username=username)
 
 
 @app.route('/question/<question_id>', methods=["GET"], endpoint='route_question')
@@ -57,6 +58,7 @@ def route_question(question_id):
 @app.route('/add-question', methods=["GET", 'POST'], endpoint='route_add_question')
 @login_required
 def route_add_question():
+    username = session['username']
     if request.method == 'POST':
         title = request.form['title']
         message = request.form['message']
@@ -64,12 +66,13 @@ def route_add_question():
         data_manager.add_new_question_SQL(title,message,username)
         return redirect('/index')
 
-    return render_template('add-question.html')
+    return render_template('add-question.html', username=username)
 
 
 @app.route('/question/<question_id>/edit-question', methods=["GET", "POST"], endpoint='edit_question')
 @login_required
 def edit_question(question_id):
+    username = session['username']
     if request.method == 'POST':
         title = request.form['title']
         message = request.form['message']
@@ -87,11 +90,12 @@ def edit_question(question_id):
         for value in data:
             message_original = data[value]
 
-    return render_template('edit-question.html', question_id = question_id, title_original = title_original, message_original = message_original)
+    return render_template('edit-question.html', question_id = question_id, title_original = title_original, message_original = message_original, username=username)
 
 @app.route('/answer/<answer_id>/edit-answer', methods=["GET", "POST"], endpoint='edit_answer')
 @login_required
 def edit_answer(answer_id):
+    username = session['username']
     if request.method == 'POST':
         message = request.form['message']
         data_manager.edit_answer_SQL(message, answer_id)
@@ -103,11 +107,12 @@ def edit_answer(answer_id):
         for value in data:
             message_original = data[value]
 
-    return render_template('edit-answer.html', answer_id = answer_id, message_original = message_original)
+    return render_template('edit-answer.html', answer_id = answer_id, message_original = message_original, username=username)
 
 @app.route('/comment/<comment_id>/edit-comment', methods=["GET", "POST"], endpoint='edit_comment')
 @login_required
 def edit_comment(comment_id):
+    username = session['username']
     if request.method == 'POST':
         message = request.form['message']
         data_manager.edit_comment_SQL(message, comment_id)
@@ -119,7 +124,7 @@ def edit_comment(comment_id):
         for value in data:
             message_original = data[value]
 
-    return render_template('edit_comment.html', comment_id = comment_id, message_original = message_original)
+    return render_template('edit_comment.html', comment_id = comment_id, message_original = message_original, username=username)
 
 
 @app.route('/question/<question_id>/delete', endpoint='delete_question')
@@ -141,12 +146,13 @@ def delete_question(question_id):
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'], endpoint='post_answer')
 @login_required
 def post_answer(question_id):
+    username = session['username']
     if request.method == 'POST':
         message=request.form['message']
         username = session['username']
         data_manager.add_new_answer_SQL(message,question_id,username)
         return redirect(url_for('route_question', question_id=question_id))
-    return render_template('add-answer.html',question_id=question_id)
+    return render_template('add-answer.html',question_id=question_id, username=username)
 
 
 @app.route('/answer/<answer_id>/delete', endpoint='delete_answer')
@@ -160,13 +166,14 @@ def delete_answer(answer_id):
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'], endpoint='post_comment_to_question')
 @login_required
 def post_comment_to_question(question_id):
+    username = session['username']
     if request.method == 'POST':
         message=request.form['message']
         username = session['username']
         data_manager.add_new_comment_to_question(message,question_id,username)
         return redirect(url_for('route_question', question_id=question_id))
 
-    return render_template('add-comment-q.html', question_id=question_id)
+    return render_template('add-comment-q.html', question_id=question_id, username=username)
 
 @app.route('/comments/<comment_id>/delete', endpoint='delete_comment')
 @login_required
@@ -179,13 +186,14 @@ def delete_comment(comment_id):
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'], endpoint='post_comment_to_answer')
 @login_required
 def post_comment_to_answer(answer_id):
+    username = session['username']
     if request.method == 'POST':
         message=request.form['message']
         username = session['username']
         data_manager.add_new_comment_to_answer(message,answer_id,username)
         return redirect("/index")
 
-    return render_template('add-comment-a.html', answer_id=answer_id)
+    return render_template('add-comment-a.html', answer_id=answer_id, username=username)
 
 
 
@@ -246,9 +254,10 @@ def register():
 @app.route("/users", endpoint='list_all_users')
 @login_required
 def list_all_users():
+    username = session['username']
     users = data_manager.get_users()
 
-    return render_template('users.html',users=users)
+    return render_template('users.html',users=users, username=username)
 
 @app.route("/users/<username>", endpoint="show_user_data")
 @login_required

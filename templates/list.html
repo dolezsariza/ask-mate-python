@@ -7,8 +7,7 @@
     <h1 align="center">Questions</h1>
 
         <table>
-            <tr>
-                {% for question in questions %}
+            {% for question in questions %}
                 <td>
                     <div class="card">
 
@@ -21,8 +20,8 @@
                         Votes: {{question.vote_number}}
                     </div>
                 </td>
+
                 {% endfor %}
-            </tr>
         </table>
 
 

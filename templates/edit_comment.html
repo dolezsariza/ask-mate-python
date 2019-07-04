@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
+{% include 'header.html' %}
+    <div id="inputs">
         <h1>
             Edit comment
         </h1>
@@ -10,7 +12,7 @@
             <br>
             <button type="submit"><b>Submit edit</b></button>
         </form>
-
+    </div>
 
 {% include 'footer.html' %}
 {% endblock %}
