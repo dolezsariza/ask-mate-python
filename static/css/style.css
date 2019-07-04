@@ -1,170 +1,141 @@
+
 body {
-	background-image: url('https://scontent.fbud8-1.fna.fbcdn.net/v/t1.15752-9/62415749_1001440796729119_6022148949106753536_n.png?_nc_cat=106&_nc_ht=scontent.fbud8-1.fna&oh=a66dbb99efcbfef618d2282c40690622&oe=5D80855F');
-	color: #666666;
-	font-size: 14px;
-	font-family: "Times New Roman";
-	font-weight: 200;
-	letter-spacing: 2;
-	word-spacing: 3;
-	text-align: left;
+	background-color: #A5D6D9;
 	margin: 0px;
-	margin-right: 700px;
-    padding: 100px;
-}   
+	padding-top: 40px;
+}
 
 h1 {
-        color: #ffffff;
-	background-color: #191970;
-	font-style: italic; 
-	text-transform: capitalize;
-	font-family: verdana;
-	font-size: 28px;
+	color: #333;
 	text-align: center;
-	margin: 20px;
-        padding: 0px;
-
 }
 
 h2 {
-        color: #ffffff;
-	background-color: #99ccff;
-	font-style: italic; 
-	text-transform: uppercase;
-	font-family: "times new roman";
-	font-size: 20px;
+	color: #333;
 	text-align: center;
-	margin: 20px;
-
 }
+
 h3 {
-        color: #bbbbbb;
-	background-color: #ffffff;
-	font-style: italic; 
-	text-transform: capitalize;
-	font-family: "verdana";
-	font-size: 16px;
-	text-decoration: underline;
+	background-color: #A5D6D9;
+	color: #333;
 	text-align: center;
-	margin: 10px;
-	border-style: outset;
-
-}
-h4 {
-	color: #ffffff;
-	background-color: #99ccff;
-	font-weight: bold;
-	font-family: "times new roman";
-	font-size: 16px;
-	text-decoration: none;
-	text-align: center;
-	margin: 20px;
-        padding: 20px;
-	border-style: inset;
-/* 	border-top-width: 3px;
-	border-bottom-width: 6px;
-	border-left-width: 10px;
-	border-right-width: 10px;
-	border-color: #000000;*/
-}
-a {
-	color: darkred;
-	text-decoration: none;
-	font-weight: bold;
+	padding: 20px;
 }
 
-strong {
-    font-style: italic;
-    text-transform: uppercase;
-}
-
-img {
-	max-width: 25%;
-	position: center;
-	text-align: justify;
-	margin-left: 20px;
-}
-
-li {
-        color: #bbbbbb;
-        font-style: italic;
-	margin: 10px;
-}
-
-table {
-	width: 95.7%;
-	background-color: #ffffff;
-	color: #bbbbbb;
-	margin-left: 20px;
-	border-width: 0px;
-	border-color: transparent;
-}
-#whole_bg {
-	background-color: #ffffff;
-	margin_left: 400px;
-}
-
-#logo1 {
-		margin-left: 100px;
-		border-style: dashed;
-		text-align: center;
-        border-width: 0px;
-        border-color: #ccc;
-		max-width: 51%;
-		position: left;
-}
-
-#logo2 {
-		margin: 0px;
-		border-style: dashed;
-		text-align: center;
-        border-width: 0px;
-        border-color: #ccc;
-		max-width: 38%;
-		position: center;
-}
-
-#comment {
-	background-color: #ffffff;
-	color: #bbbbbb;
-	margin: 10px;
-  }
-
-#answers {
-	color: #000000;
-}
-
-#question {
-	color: #191970;
-}
 button {
-	margin: 30px;
-	background-color: white;
-	color: #bbbbbb;
-	border-style: inset;
-	border-bottom-width: 2px;
-	border-color: #99ccff;
+	background-color: #333;
+	color: #f2f2f2;
+}
+
+.navbar {
+	margin: 0px;
+	overflow: hidden;
+	background-color: #333;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
 }
 
 .logout {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	padding: 20px;
+	float: right;
 }
 
 .username {
-	position: absolute;
-	top: 0px;
-	right: 70px;
+	float: right;
+}
+
+.card {
+	background-color: #333;
+	color: #f2f2f2;
+	width: 300px;
+	height: 150px;
 	padding: 20px;
-}
-
-#noaccess {
-	color: #9c1a1c;
-	background-color: white;
-	font-family: "Times New Roman";
-	font-size: 50px;
 	text-align: center;
-	padding: 40px;
+	border-radius: 7px;
+
 
 }
+
+.card a {
+
+	display: block;
+	color: #f2f2f2;
+	padding: 10px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	padding-bottom: 10px;
+}
+
+.card a:hover {
+	background: #ddd;
+	color: black;
+	border-radius: 7px;
+}
+
+footer {
+	margin: 0px;
+	overflow: hidden;
+	background-color: #333;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	color: #f2f2f2;
+	text-align: center;
+}
+
+.datarow {
+	background-color: #333;
+	margin: 0px;
+	width: 100%;
+	color: #f2f2f2;
+}
+
+.datarowsub {
+	background-color: #333;
+	width: 100%;
+	color: #f2f2f2;
+	margin-left: 20%;
+}
+
+.datarow p {
+
+	display: block;
+	color: #f2f2f2;
+	padding: 10px 20px;
+	text-decoration: none;
+	font-size: 17px;
+	border-width: 5px;
+	border-color: #f2f2f2;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.datarowsub p {
+	display: block;
+	color: #f2f2f2;
+	padding: 10px 20px;
+	text-decoration: none;
+	font-size: 17px;
+	border-width: 5px;
+	border-color: #f2f2f2;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+
+

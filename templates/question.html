@@ -1,136 +1,67 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Question</h1>
+{% include "header.html" %}
+<h1>{{ question.title }}</h1>
+<div class="datarow">
     <table id="question">
         <tr>
-            <th>Id</th>
-            <th>Submission time</th>
-            <th>Number of views</th>
-            <th>Number of votes</th>
-            <th>Title</th>
-            <th>Message</th>
-            <th>Image</th>
-        </tr>
-        <tr>
-            <td>{{ question.id }}</td>
-            <td>{{ question.submission_time }}</td>
-            <td>{{ question.view_number }}</td>
-            <td>{{ question.vote_number }}</td>
-            <td>{{ question.title }}</td>
-            <td>{{ question.message }}</td>
-            <td>{{ question.image }}</td>
 
+            <td><p>{{ question.username }}</p></td>
+            <td><p>{{ question.message }}</p></td>
+            <td><p>{{ question.submission_time }}</p></td>
+            <td><p>Views:<br><br>{{ question.view_number }}</p></td>
+            <td><p>Votes:<br><br>{{ question.vote_number }}</p></td>
         </tr>
-
     </table>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h2>Answers</h2>
-    {% for answer in answers %}
-        <table id="answers">
-            <tr>
-                <th>Id</th>
-                <th>Submission time</th>
-                <th>Number of votes</th>
-                <th>Message</th>
-                <th>Image</th>
-                <th>   </th>
-                <th>   </th>
-            </tr>
-
-
-            <tr>
-                {% for key in answer %}
-                    {% if key != 'question_id' %}
-                        <td>
-                            {{ answer[key] }}
-                        </td>
-                    {% endif %}
-
-                {% endfor %}
-
-                <td>
-                    <a href="{{ url_for('delete_answer',answer_id= answer['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
-                </td>
-                <td>
-                    <a href="{{ url_for('post_comment_to_answer',answer_id= answer['id'])}}">COMMENT</a>
-                    <br>
-                    <br>
-                    <a href="{{ url_for('edit_answer',answer_id= answer['id'])}}">EDIT</a>
-                </td>
-            </tr>
-        </table>
-        <br><h3>Comments for answer</h3>
-        <table id="comment" border="1">
-            <tr>
-                <th>Id</th>
-                <th>Message</th>
-                <th>Submission time</th>
-                <th> </th>
-            </tr>
-
-            {% for comment in comments_a %}
-                <tr>
-                    {% for key,value in comment.items() %}
-                        {% if comment['answer_id'] == answer['id'] %}
-                            {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
-                                <td>
-                                    {{ value }}
-                                </td>
-                            {% endif %}
-                        {% endif %}
-
-                    {% endfor %}
-                    <td><a href="{{ url_for('delete_comment',comment_id = comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></td>
-                <tr>
-            {% endfor %}
-        </table>
-
-    {% endfor %}
-
-    <br>
-    <br>
-    <h2>Comments</h2>
-    <table border="1">
-
-
+</div>
+<h2>Comments</h2>
+<h2><a href="/question/{{ question.id }}/new-comment"><button>Post one!</button></a></h2>
+<div class="datarowsub">
+    <table>
         {% for comment in comments_q %}
             <tr>
-
-                <th>Id</th>
-                <th>Message</th>
-                <th>Submission time</th>
-                <th> </th>
-            </tr>
-            <tr>
-                {% for key in comment %}
-                    {% if key != 'question_id'  and key != 'answer_id' and key != 'edited_count'%}
-                        <td>
-                            {{ comment[key] }}
-                        </td>
-                    {% endif %}
-                {% endfor %}
-                <td>
-                    <a href="{{ url_for('delete_comment',comment_id= comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a>
-                </td>
+                <td><p>{{ comment.username }}</p></td>
+                <td><p>{{ comment.message }}</p></td>
+                <td><p>{{ comment.submission_time }}</p></td>
             </tr>
         {% endfor %}
     </table>
-
+</div>
+<br>
     <br>
-    <br>
-    <br>
-    <br>
+    <h1>Answers</h1>
+    <h1><a href="/question/{{ question.id }}/new-answer"><button>Post one!</button></a></h1>
+    {% for answer in answers %}
+    <div class="datarow">
 
-    <a href="/question/{{ question.id }}/vote/up"><button><b>Upvote</b></button></a>
-    <a href="/question/{{ question.id }}/vote/down"><button><b>Downvote</b></button></a>
-    <a href="/question/{{ question.id }}/new-answer"><button><b>Post new answer</b></button></a>
-    <a href="/question/{{ question.id }}/new-comment"><button><b>Post new comment to question</b></button></a>
-    <a href="/question/{{ question.id }}/delete"><button><b>Delete question</b></button></a>
-    <a href="/question/{{ question.id }}/edit-question"><button><b>Edit question</b></button></a>
+        <table id="answers">
+            <tr>
+                <td><p>{{ answer.username }}</p></td>
+                <td><p>{{ answer.message }}</p></td>
+                <td><p>{{ answer.submission_time }}</td>
+                <td><p><a href="{{ url_for('post_comment_to_answer',answer_id= answer['id'])}}">COMMENT</a></p></td>
+            </tr>
+        </table>
 
+        <br><h3>Comments for answer</h3>
+        <div class="datarowsub">
+        <table id="comment" border="1">
+            {% for sublist in comments_a %}
+                {% for comment in sublist %}
+                <tr>
+                    {% if comment.answer_id == answer.id %}
+                        <td><p>{{ comment.message }}</p></td>
+                        <td><p>{{ comment.submission_time }}</p></td>
+                        <td><p>{{ comment.username }}</p></td>
+                        <td><p><a href="{{ url_for('delete_comment',comment_id = comment['id'])}}"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></p></td>
+                    {% endif %}
+                </tr>
 
-{% include 'footer.html' %}
+                {% endfor %}
+            {% endfor %}
+        </table>
+        </div>
+    {% endfor %}
+
+{% include "footer.html" %}
 {% endblock %}

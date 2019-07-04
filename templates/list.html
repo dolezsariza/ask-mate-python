@@ -1,42 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
+{% include "header.html" %}
 
     <body>
 
-    <h1>Questions</h1>
-    <div class="logout"><a href="/logout"><button>Logout</button></a></div>
-    <div class="username">{{ username }}</div>
+    <h1 align="center">Questions</h1>
 
-        <table border="1">
-            <th>Id</th>
-            <th>Submission time</th>
-            <th>Number of views</th>
-            <th>Number of votes</th>
-            <th>Title</th>
-
-        {% for question in questions %}
+        <table>
             <tr>
+                {% for question in questions %}
                 <td>
-                    {{question.id}}
+                    <div class="card">
+
+                        <!-- {{question.id}}-->
+
+                        <a href="/question/{{ question.id }}">{{question.title}}</a><br>
+                        {{question.submission_time}}<br>
+                        <br>
+                        Views: {{question.view_number}}
+                        Votes: {{question.vote_number}}
+                    </div>
                 </td>
-                <td>
-                    {{question.submission_time}}
-                </td>
-                <td>
-                    {{question.view_number}}
-                </td>
-                <td>
-                    {{question.vote_number}}
-                </td>
-                <td>
-                    <a href="/question/{{ question.id }}">{{question.title}}</a>
-                </td>
+                {% endfor %}
             </tr>
-        {% endfor %}
         </table>
-        <br>
-    <a href="/list"><button><b>Show all questions</b></button></a>
-    <a href="/add-question"><button><b>Add question</b></button></a>
-    <a href="/users"><button><b>Show users</b></button></a>
+
+
 {% include "footer.html" %}
 {% endblock %}

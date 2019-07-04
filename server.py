@@ -52,7 +52,8 @@ def route_question(question_id):
                            question=question,
                            answers=answers,
                            comments_q=comments_q,
-                           comments_a=comments_a)
+                           comments_a=comments_a,
+                           username = session['username'])
 
 @app.route('/add-question', methods=["GET", 'POST'], endpoint='route_add_question')
 @login_required
