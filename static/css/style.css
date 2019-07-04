@@ -4,7 +4,8 @@ body {
 	margin: 0px;
 	padding-top: 40px;
 	padding-bottom: 60px;
-	font-family: 'Montserrat', sans-serif ;
+	font-family: 'Montserrat', sans-serif;
+	table-layout: auto;
 }
 
 h1 {
@@ -30,6 +31,11 @@ button {
 	border-width: 0px;
 	height: 40px;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, .9);
+	font-family: 'Times New Roman';
+	font-size: 16px;
+}
+td {
+	padding: 5px;
 }
 
 .navbar {
@@ -111,15 +117,19 @@ footer {
 .datarow {
 	background-color: #333;
 	margin: 0px;
+	padding-left: 0px;
 	width: 100%;
 	color: #f2f2f2;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, .9);
+
 }
 
 .datarowsub {
 	background-color: #A5D6D9;
 	width: 100%;
 	color: #f2f2f2;
+	padding-left: 10px;
+	margin-right: 20%;
 	margin-left: 20%;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, .9);
 }
@@ -129,11 +139,12 @@ footer {
 	display: block;
 	color: #f2f2f2;
 	padding: 10px 20px;
+	margin-right: 10%;
 	text-decoration: none;
-	font-size: 17px;
+	font-size: 16px;
 	padding-top: 3px;
 	padding-bottom: 3px;
-	box-shadow: 0 1px 5px rgba(0, 0, 0, .9);
+
 }
 
 .datarowsub p {
@@ -144,12 +155,26 @@ footer {
 	font-size: 17px;
 	padding-top: 3px;
 	padding-bottom: 3px;
-	box-shadow: 0 1px 5px rgba(0, 0, 0, .9);
 }
 
 
 #inputs {
-	margin: 5%;
-	box-shadow: 0 1px 5px rgba(0, 0, 0, .9);
+	margin-right: 50%;
+	margin-left: 10%;
+	margin-top: 5%;
+	padding: 20px;
+	color: #666666;
+	background-color: #bbbbbb;
+	background-image: url('https://scontent.fbud8-1.fna.fbcdn.net/v/t1.15752-9/62415749_1001440796729119_6022148949106753536_n.png?_nc_cat=106&_nc_ht=scontent.fbud8-1.fna&oh=a66dbb99efcbfef618d2282c40690622&oe=5D80855F');
+	box-shadow: 0 1px 7px rgba(0, 0, 0, .9);
+}
 
+#logo  {
+	text-align: left;
+	background-color: #fff;
+	background-image: url('https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64356921_815364398835232_5241260870343852032_n.png?_nc_cat=101&_nc_oc=AQnQBPqZUlrl6A3f4S-Fb0Nl6bneRvYJyInckqtGCXMPXegbe7dHy44vVITJ4RH8zkw&_nc_ht=scontent-vie1-1.xx&oh=9bbee9b4fca8827a190c65cb07102c01&oe=5DC5DFCB');
+	background-position-x: 90%;
+	background-position-y: 200%;
+	background-repeat: no-repeat;
+	background-size: 50%;
 }

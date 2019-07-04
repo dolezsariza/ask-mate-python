@@ -2,13 +2,17 @@
 {% block content %}
 {% include 'header.html' %}
     <h1>Users</h1>
+    <div class="datarow">
+    <br>
 
     <table border="0">
+
         <th>Id</th>
         <th>Username</th>
         <th>E-mail</th>
 
         {% for user in users %}
+
             <tr>
                 <td>
                     {{user.id}}
@@ -21,9 +25,11 @@
                 </td>
 
             </tr>
+
         {% endfor %}
     </table>
 
-
+    <br>
+</div>
 {% include 'footer.html' %}
 {% endblock %}

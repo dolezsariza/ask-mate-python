@@ -1,8 +1,15 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div id="inputs">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AskMate - Log In</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    </head>
+    <body id="logo">
 <h1>Welcome!</h1>
-    <form action="/login" method="post">
+<div id="inputs">
+<form action="/login" method="post">
         User name<br>
         <p><input type=text name=username><br>
         <br>
@@ -12,4 +19,5 @@
     </form>
     <a href="/register"><button name="register">Register</button></a>
     </div>
-{% endblock %}
+    </body>
+</html>
