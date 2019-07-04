@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+    <div id="inputs">
 <h1>Welcome!</h1>
     <form action="/login" method="post">
         User name<br>
@@ -10,5 +11,5 @@
         <p><button type=submit value=Login>Login</button></p>
     </form>
     <a href="/register"><button name="register">Register</button></a>
-
+    </div>
 {% endblock %}

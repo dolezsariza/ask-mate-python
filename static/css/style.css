@@ -1,6 +1,6 @@
 
 body {
-	background-color: #A5D6D9;
+	background-color: #b2f4d2;
 	margin: 0px;
 	padding-top: 40px;
 	padding-bottom: 60px;
@@ -66,8 +66,11 @@ button {
 	width: 300px;
 	height: 150px;
 	padding: 20px;
+	margin-left: 50%;
+	margin-right: 50%;
 	text-align: center;
 	border-radius: 7px;
+
 
 
 }

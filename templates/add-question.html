@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
-
 {% block content %}
-
+{% include 'header.html' %}
+    <div id="inputs">
     <h1>
         New question
     </h1>
@@ -20,7 +20,7 @@
     <br>
     <br>
     <a href="/list"><button><b>Back</b></button></a>
-
+    </div>
 
 {% include 'footer.html' %}
 {% endblock %}

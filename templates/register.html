@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+    <div id="inputs">
     <form action="/register" method="post">
         <h1>Register new user</h1><br>
         Username<br>
@@ -10,5 +11,5 @@
         <p><input type="text" name="email"></p><br>
         <p><input type="submit" value="Submit"></p><br>
     </form>
-
+    </div>
 {% endblock %}

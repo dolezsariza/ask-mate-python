@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
+{% include 'header.html' %}
+    <div id="inputs">
     <form action="{{ url_for('post_comment_to_answer',answer_id=answer_id) }}" method="post">
         <h1><label for="message">Comment</label></h1>
         <textarea id="message" name="message" cols="50" rows="10" required></textarea><br>
         <button type="submit">Post comment</button>
     </form>
-
+    </div>
 {% include 'footer.html' %}
 {% endblock %}
