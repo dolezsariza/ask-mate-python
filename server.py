@@ -40,13 +40,12 @@ def route_question(question_id):
     answers = data_manager.read_answers(question_id)
     comments_q = data_manager.read_comments_question(question_id)
     answer_ids = data_manager.get_answer_ids(question_id)
-    if len(answer_ids) == 0:
-        comments_a = []
-    else:
-        for answer_id in answer_ids:
-            for value in answer_id:
-                new = answer_id[value]
-                comments_a = data_manager.get_comments_by_answer_id(new)
+
+    comments_a = []
+    for answer_id in answer_ids:
+        for value in answer_id:
+            new = answer_id[value]
+            comments_a.append(data_manager.get_comments_by_answer_id(new))
 
     return render_template('question.html',
                            question=question,
@@ -61,7 +60,8 @@ def route_add_question():
     if request.method == 'POST':
         title = request.form['title']
         message = request.form['message']
-        data_manager.add_new_question_SQL(title,message)
+        username = session['username']
+        data_manager.add_new_question_SQL(title,message,username)
         return redirect('/index')
 
     return render_template('add-question.html')
@@ -105,6 +105,22 @@ def edit_answer(answer_id):
 
     return render_template('edit-answer.html', answer_id = answer_id, message_original = message_original)
 
+@app.route('/comment/<comment_id>/edit-comment', methods=["GET", "POST"], endpoint='edit_comment')
+@login_required
+def edit_comment(comment_id):
+    if request.method == 'POST':
+        message = request.form['message']
+        data_manager.edit_comment_SQL(message, comment_id)
+        return redirect('/index')
+
+    message_original = 0
+    edit_message_data = data_manager.get_edit_comment(comment_id)
+    for data in edit_message_data:
+        for value in data:
+            message_original = data[value]
+
+    return render_template('edit_comment.html', comment_id = comment_id, message_original = message_original)
+
 
 @app.route('/question/<question_id>/delete', endpoint='delete_question')
 @login_required
@@ -114,7 +130,7 @@ def delete_question(question_id):
         for answer_id in answer_ids:
             for value in answer_id:
                 new = answer_id[value]
-        data_manager.delete('comment', 'answer_id', new)
+                data_manager.delete('comment', 'answer_id', new)
 
     data_manager.delete('comment','question_id',question_id)
     data_manager.delete('answer','question_id',question_id)
@@ -127,7 +143,8 @@ def delete_question(question_id):
 def post_answer(question_id):
     if request.method == 'POST':
         message=request.form['message']
-        data_manager.add_new_answer_SQL(message,question_id)
+        username = session['username']
+        data_manager.add_new_answer_SQL(message,question_id,username)
         return redirect(url_for('route_question', question_id=question_id))
     return render_template('add-answer.html',question_id=question_id)
 
@@ -145,7 +162,8 @@ def delete_answer(answer_id):
 def post_comment_to_question(question_id):
     if request.method == 'POST':
         message=request.form['message']
-        data_manager.add_new_comment_to_question(message,question_id)
+        username = session['username']
+        data_manager.add_new_comment_to_question(message,question_id,username)
         return redirect(url_for('route_question', question_id=question_id))
 
     return render_template('add-comment-q.html', question_id=question_id)
@@ -163,7 +181,8 @@ def delete_comment(comment_id):
 def post_comment_to_answer(answer_id):
     if request.method == 'POST':
         message=request.form['message']
-        data_manager.add_new_comment_to_answer(message,answer_id)
+        username = session['username']
+        data_manager.add_new_comment_to_answer(message,answer_id,username)
         return redirect("/index")
 
     return render_template('add-comment-a.html', answer_id=answer_id)
@@ -230,6 +249,21 @@ def list_all_users():
     users = data_manager.get_users()
 
     return render_template('users.html',users=users)
+
+@app.route("/users/<username>", endpoint="show_user_data")
+@login_required
+def show_user_data(username):
+    #username = session['username']
+    user_data = data_manager.get_user_data(username)
+    user_questions = data_manager.get_user_questions(username)
+    user_answers = data_manager.get_user_answers(username)
+    user_comments = data_manager.get_user_comments(username)
+    return render_template('user_data.html',
+                           user_data=user_data,
+                           user_questions=user_questions,
+                           user_answers=user_answers,
+                           user_comments=user_comments,
+                           username=username)
 
 
 

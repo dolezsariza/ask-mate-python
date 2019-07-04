@@ -5,12 +5,12 @@
 <div class="datarow">
     <table id="question">
         <tr>
-
             <td><p>{{ question.username }}</p></td>
             <td><p>{{ question.message }}</p></td>
             <td><p>{{ question.submission_time }}</p></td>
             <td><p>Views:<br><br>{{ question.view_number }}</p></td>
-            <td><p>Votes:<br><br>{{ question.vote_number }}</p></td>
+            <td><p>Votes:<br><br>{{ question.vote_number }}<a href="/question/{{ question.id }}/vote/up"><img src="https://cdn.pixabay.com/photo/2013/07/12/12/29/arrow-145786_960_720.png" height="20px"></a>
+                <a href="/question/{{ question.id }}/vote/down"><img src="http://www.clker.com/cliparts/e/a/c/a/12065697821256125215pitr_red_arrows_set_5.svg.med.png" height="20px"></a></p></td>
         </tr>
     </table>
 </div>
@@ -40,6 +40,7 @@
                 <td><p>{{ answer.message }}</p></td>
                 <td><p>{{ answer.submission_time }}</td>
                 <td><p><a href="{{ url_for('post_comment_to_answer',answer_id= answer['id'])}}">COMMENT</a></p></td>
+
             </tr>
         </table>
 
@@ -65,3 +66,4 @@
 
 {% include "footer.html" %}
 {% endblock %}
+

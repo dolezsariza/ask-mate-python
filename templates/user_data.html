@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <h1>Hello {{ username }}!</h1>
+    <h2>These are your datas</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>USERNAME</td>
+                <td>EMAIL</td>
+            </tr>
+        </thead>
+        <tbody>
+    {% for data in user_data %}
+            <tr>
+                <td>{{ data.id }}</td>
+                <td>{{ data.username }}</td>
+                <td>{{ data.email }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Your questions</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>QUESTION TITLE</td>
+                <td>QUESTION MESSAGE</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for data in user_questions %}
+            {% if user_questions %}
+            <tr>
+                <td>{{ data.title }}</td>
+                <td>{{ data.message }}</td>
+
+                <td><a href="/question/{{ url_for('delete_question',question_id= data.question_id)}}/delete"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></td>
+                <td><a href="/question/{{  url_for('edit_question',question_id= data.question_id) }}/edit-question">EDIT</a></td>
+
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Your answers</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>ANSWER MESSAGE</td>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for data in user_answers %}
+            <tr>
+                <td>{{ data.a_message }}</td>
+                <td><a href="/answer/{{ url_for('delete_answer',answer_id= data.answer_id) }}/delete"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></td>
+                <td><a href="/answer/{{ url_for('edit_answer',answer_id= data.answer_id) }}/edit-answer">EDIT</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Your comments</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>COMMENT MESSAGE</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+    {% for data in user_comments %}
+            <tr>
+                <td>{{ data.c_message }}</td>
+                <td><a href="/comments/{{ url_for('delete_comment',comment_id= data.comment_id) }}/delete"><img id="bin" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/64913820_1123061767879482_3540883781713920000_n.png?_nc_cat=107&_nc_ht=scontent-vie1-1.xx&oh=5cb1d7fad9c6fe5c268592af1f46cece&oe=5D78BF8D"></a></td>
+                <td><a href="/comment/{{ url_for('edit_comment',comment_id= data.comment_id) }}/edit-comment">EDIT</a></td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% include 'footer.html' %}
+{% endblock %}

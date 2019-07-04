@@ -35,13 +35,14 @@ def get_question_by_id(cursor,question_id):
     return data[0]
 
 @connection.connection_handler
-def add_new_question_SQL(cursor,title,message):
+def add_new_question_SQL(cursor,title,message, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                       INSERT INTO question(title, message, submission_time, view_number, vote_number) 
-                       VALUES (%(title)s,%(message)s,%(submission_time)s, 0, 0);
+                       INSERT INTO question(title, message, submission_time, view_number, vote_number, username, user_id) 
+                       VALUES (%(title)s,%(message)s,%(submission_time)s, 0, 0, %(username)s,
+                       (SELECT id FROM users WHERE username = %(username)s));
                        """,
-                   {'title': title, 'message': message, 'submission_time': submission_time})
+                   {'title': title, 'message': message, 'submission_time': submission_time, 'username': username})
 
 @connection.connection_handler
 def edit_question_SQL(cursor,title,message,question_id):
@@ -62,31 +63,44 @@ def edit_answer_SQL(cursor,message,answer_id):
                     """,
                    {'message': message, 'answer_id': answer_id})
 
+@connection.connection_handler
+def edit_comment_SQL(cursor,message,comment_id):
+    cursor.execute("""
+                    UPDATE comment
+                    SET message = %(message)s
+                    WHERE id = %(comment_id)s;
+                    """,
+                   {'message': message, 'comment_id': comment_id})
 
 @connection.connection_handler
-def add_new_answer_SQL(cursor,message,question_id):
+def add_new_answer_SQL(cursor,message,question_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                   INSERT INTO answer(message,question_id,vote_number,submission_time) 
-                   VALUES (%(message)s,%(question_id)s, 0, %(submission_time)s);
+                   INSERT INTO answer(message,question_id,vote_number,submission_time, username, user_id) 
+                   VALUES (%(message)s,%(question_id)s, 0, %(submission_time)s, %(username)s,
+                   (SELECT id FROM users WHERE username = %(username)s));
                    """,
-                   {'message': message,'question_id': question_id, 'submission_time': submission_time})
+                   {'message': message,'question_id': question_id, 'submission_time': submission_time,'username':username})
 
 @connection.connection_handler
-def add_new_comment_to_question(cursor,message,question_id):
+def add_new_comment_to_question(cursor,message,question_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                    INSERT INTO comment(question_id,message,submission_time) VALUES (%(question_id)s,%(message)s,%(submission_time)s)
+                    INSERT INTO comment(question_id,message,submission_time, username,user_id) 
+                    VALUES (%(question_id)s,%(message)s,%(submission_time)s, %(username)s,
+                    (SELECT id FROM users WHERE username = %(username)s));
                     """,
-                   {'question_id':question_id,'message':message,'submission_time':submission_time})
+                   {'question_id':question_id,'message':message,'submission_time':submission_time,'username':username})
 
 @connection.connection_handler
-def add_new_comment_to_answer(cursor,message,answer_id):
+def add_new_comment_to_answer(cursor,message,answer_id, username):
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute("""
-                    INSERT INTO comment(answer_id,message,submission_time) VALUES (%(answer_id)s,%(message)s,%(submission_time)s)
+                    INSERT INTO comment(answer_id,message,submission_time, username, user_id) 
+                    VALUES (%(answer_id)s,%(message)s,%(submission_time)s, %(username)s,
+                    (SELECT id FROM users WHERE username = %(username)s));
                     """,
-                   {'answer_id':answer_id,'message':message,'submission_time':submission_time})
+                   {'answer_id':answer_id,'message':message,'submission_time':submission_time, 'username':username})
 
 @connection.connection_handler
 def read_questions(cursor):
@@ -208,7 +222,16 @@ def get_edit_message_answer(cursor, answer_id):
     data = cursor.fetchall()
     return data
 
+@connection.connection_handler
+def get_edit_comment(cursor,comment_id):
+    cursor.execute("""
+                    SELECT message FROM comment
+                    WHERE id = %(comment_id)s;
+                    """,
+                   {'comment_id':comment_id})
 
+    data = cursor.fetchall()
+    return data
 
 @connection.connection_handler
 def raise_views_number(cursor, question_id):
@@ -283,3 +306,63 @@ def get_user_hash(cursor, username):
 
     data = cursor.fetchall()
     return data
+
+@connection.connection_handler
+def get_user_data(cursor, username):
+    cursor.execute("""
+                    SELECT id, username, email
+                    FROM users
+
+                    WHERE users.username = %(username)s;
+                    """,
+                   {'username': username})
+
+    return cursor.fetchall()
+
+@connection.connection_handler
+def get_user_questions(cursor,username):
+    cursor.execute("""
+                    SELECT question.title AS title,
+                    question.message AS message,
+                    question.id AS question_id
+                    FROM users
+                    RIGHT JOIN question
+                    ON (users.id = question.user_id)
+                   
+                    WHERE users.username = %(username)s;
+                    """,
+                   {'username':username})
+
+    return cursor.fetchall()
+
+
+@connection.connection_handler
+def get_user_answers(cursor, username):
+    cursor.execute("""
+                    SELECT answer.message AS a_message,
+                    answer.id AS answer_id
+                    FROM users
+                    RIGHT JOIN answer
+                    ON (users.id = answer.user_id)
+
+                    WHERE users.username = %(username)s;
+                    """,
+                   {'username': username})
+
+    return cursor.fetchall()
+
+@connection.connection_handler
+def get_user_comments(cursor, username):
+    cursor.execute("""
+                    SELECT comment.message AS c_message,
+                    comment.id AS comment_id
+                    
+                    FROM users
+                    RIGHT JOIN comment
+                    ON (users.id = comment.user_id)
+
+                    WHERE users.username = %(username)s;
+                    """,
+                   {'username': username})
+
+    return cursor.fetchall()
