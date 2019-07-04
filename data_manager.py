@@ -326,7 +326,7 @@ def get_user_questions(cursor,username):
                     question.message AS message,
                     question.id AS question_id
                     FROM users
-                    LEFT JOIN question
+                    RIGHT JOIN question
                     ON (users.id = question.user_id)
                    
                     WHERE users.username = %(username)s;
@@ -342,7 +342,7 @@ def get_user_answers(cursor, username):
                     SELECT answer.message AS a_message,
                     answer.id AS answer_id
                     FROM users
-                    LEFT JOIN answer
+                    RIGHT JOIN answer
                     ON (users.id = answer.user_id)
 
                     WHERE users.username = %(username)s;
@@ -358,7 +358,7 @@ def get_user_comments(cursor, username):
                     comment.id AS comment_id
                     
                     FROM users
-                    LEFT JOIN comment
+                    RIGHT JOIN comment
                     ON (users.id = comment.user_id)
 
                     WHERE users.username = %(username)s;

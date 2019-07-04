@@ -15,7 +15,11 @@
             <td>{{ question.id }}</td>
             <td>{{ question.submission_time }}</td>
             <td>{{ question.view_number }}</td>
-            <td>{{ question.vote_number }}</td>
+            <td>
+                {{ question.vote_number }}
+                <a href="/question/{{ question.id }}/vote/up"><img src="https://cdn.pixabay.com/photo/2013/07/12/12/29/arrow-145786_960_720.png" height="20px"></a>
+                <a href="/question/{{ question.id }}/vote/down"><img src="http://www.clker.com/cliparts/e/a/c/a/12065697821256125215pitr_red_arrows_set_5.svg.med.png" height="20px"></a>
+            </td>
             <td>{{ question.title }}</td>
             <td>{{ question.message }}</td>
             <td>{{ question.username }}</td>
@@ -105,11 +109,10 @@
     <br>
     <br>
 
-    <a href="/question/{{ question.id }}/vote/up"><button><b>Upvote</b></button></a>
-    <a href="/question/{{ question.id }}/vote/down"><button><b>Downvote</b></button></a>
+
     <a href="/question/{{ question.id }}/new-answer"><button><b>Post new answer</b></button></a>
     <a href="/question/{{ question.id }}/new-comment"><button><b>Post new comment to question</b></button></a>
 
 
 {% include 'footer.html' %}
-{% endblock %}
+{% endblock %}3

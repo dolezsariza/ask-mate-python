@@ -129,7 +129,7 @@ def delete_question(question_id):
         for answer_id in answer_ids:
             for value in answer_id:
                 new = answer_id[value]
-        data_manager.delete('comment', 'answer_id', new)
+                data_manager.delete('comment', 'answer_id', new)
 
     data_manager.delete('comment','question_id',question_id)
     data_manager.delete('answer','question_id',question_id)
@@ -249,10 +249,10 @@ def list_all_users():
 
     return render_template('users.html',users=users)
 
-@app.route("/users/hali", endpoint="show_user_data")
+@app.route("/users/<username>", endpoint="show_user_data")
 @login_required
-def show_user_data():
-    username = session['username']
+def show_user_data(username):
+    #username = session['username']
     user_data = data_manager.get_user_data(username)
     user_questions = data_manager.get_user_questions(username)
     user_answers = data_manager.get_user_answers(username)
